@@ -1,0 +1,7 @@
+
+
+// define droplet edge length
+droplet = 0.03;
+
+// include circle.geo file
+Include 'circle.geo';
