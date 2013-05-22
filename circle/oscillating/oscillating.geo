@@ -1,12 +1,10 @@
 
 nb = 1;
-b1 = 0.03;
-wall = 0.4;
+b1 = 0.02;
+wall = 20*b1;
 
 D = 1.0;
 r = 0.5*D;
-body = 1.0*D;
-slug = 0.7*r;
 pert = (1.0/100)*r;
 
 For t In {0:nb-1}
