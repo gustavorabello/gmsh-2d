@@ -1,5 +1,5 @@
 
-wall = 0.5;
+wall = 0.1;
 xCenter=0.0;
 yCenter=0.0;
 radius=1.0;

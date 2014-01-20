@@ -110,7 +110,9 @@ Ellipse(23) = {25, 33, 33, 34};
 Ellipse(24) = {28, 29, 29, 30};
 Ellipse(25) = {30, 29, 29, 27};
 
-Physical Line('wall') = {3, 2, 1, 4};
+Physical Line('wallInflowUParabolic') = {3};
+Physical Line('wallOutflow') = {1};
+Physical Line('wallNoSlip') = {2, 4};
 Physical Line('bubble1') = {9, 6, 10, 11, 5, 8, 7};
 Physical Line('bubble2') = {14, 16, 13, 17, 18, 12, 15};
 Physical Line('bubble3') = {21, 23, 20, 24, 25, 19, 22};
