@@ -1,8 +1,8 @@
 
 
 nb = 1;
-b1 = 0.04;
-wall = 0.04;
+b1 = 0.03;
+wall = 0.05;
 
 D = 1.0;
 r = 0.35*D;
@@ -19,9 +19,9 @@ For t In {0:nb-1}
  Include '../bubbleShape/taylor.geo';
 EndFor
 
-wallLength1 = 2.5*D;
+wallLength1 = 1.5*D;
 wallLength2 = 0.6+nb*(body+3*r/2.0)+(nb-1)*slug;
-wallLength3 = 1.5*D;
+wallLength3 = 5.5*D;
 
 
 /* 
@@ -50,7 +50,7 @@ Extrude {wallLength3, 0, 0} {
 }
 Line(k+13) = {k+07, k+08};
 Line(k+14) = {k+01, k+02};
-Physical Line('wallInflowZeroU') = {k+13,k+14,k+7,k+9,k+11,k+12,k+10,k+8};
+Physical Line('wallNoSlip') = {k+13,k+14,7,9,11,12,10,8};
 
 
 j=200*0;

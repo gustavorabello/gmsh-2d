@@ -16,15 +16,15 @@ For t In {0:nb-1}
  zc = 0.0;
 
  // include torus.geo file
- Include '../bubbleShape/taylor.geo';
+ Include '../../bubbleShape/taylor.geo';
 EndFor
 
 A = 0.05;
 D = 0.5;
 k = 1;
-stretch=10;
+stretch=5;
 phase = 0;
-nCycles = 3.0;
+nCycles = 1.5;
 nPoints = 18;
 nTheta = 4;
 
@@ -64,7 +64,8 @@ s1=newreg;
 Line(s1) = {k+1, k+1+nPoints};
 Line(s1+1) = {k+nPoints, k+2*nPoints};
 
-Physical Line('wallNoSlip') = {k+1:k+(nPoints-1)*2:1,s1,s1+1};
+Physical Line('wallInflowZeroU') = {s1,s1+1};
+Physical Line('wallMovingY') = {k+1:k+(nPoints-1)*2:1};
 
 j=200*0;
 For t In {1:nb}
