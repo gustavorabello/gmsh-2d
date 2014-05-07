@@ -11,7 +11,7 @@ slug = 0.7*r;
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 1.5+(slug+body+r+r/2.0)*t;
+ xc = 3.1+(slug+body+r+r/2.0)*t;
  yc = 0.0;
  zc = 0.0;
 
@@ -25,7 +25,7 @@ k = 1;
 stretch=10;
 phase = 0;
 nCycles = 3.0;
-nPoints = 18;
+nPoints = 22;
 nTheta = 4;
 
 k = 10000;
