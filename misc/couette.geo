@@ -8,6 +8,10 @@ Line(2) = {3, 4};
 Line(3) = {4, 1};
 Line(4) = {1, 2};
 Line Loop(5) = {1, 2, 3, 4};
-Plane Surface(6) = {5};
-Transfinite Line {2, 4} = 50 Using Bump 1;
-Transfinite Line {2, 4} = 50 Using Progression 1;
+
+Physical Line('wallInflowU') = {4};
+Physical Line('wallOutflow') = {2};
+Physical Line('wallNoSlipConcentration') = {1, 3};
+
+Transfinite Line {3, 1} = 40 Using Progression 1;
+Transfinite Line {4, 2} = 10 Using Progression 1;
