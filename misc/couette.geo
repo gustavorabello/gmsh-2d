@@ -16,3 +16,4 @@ Transfinite Line {4, 2} = 20 Using Progression 1;
 Physical Line('wallNoSlip') = {1, 3};
 Physical Line('wallInflowU') = {4};
 Physical Line('wallOutflow') = {2};
+Physical Line('wallNoSlipConcentration') = {1, 3};
