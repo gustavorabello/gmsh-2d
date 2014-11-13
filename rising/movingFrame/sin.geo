@@ -25,7 +25,7 @@ k = 1;
 stretch=8;
 phase = 0;
 nCycles = 2;
-nPoints = 20;
+nPoints = 40;
 nTheta = 4;
 
 k = 10000;
