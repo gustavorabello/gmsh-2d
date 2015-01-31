@@ -5,10 +5,16 @@ r2 = 0.007;
 material = 0.001;
 wall = 0.6;
 
-Point(1) = {0, 0.00, 0, wall};
-Point(2) = {0, 0.05, 0, wall};
-Point(3) = {0.1875, 0.05, 0, wall};
-Point(4) = {0.1875, 0.00, 0, wall};
+// Nondimensional coordinates 
+xmin = 0.0;
+xmax = 0.1875;
+ymin = 0.00;
+ymax = 0.05;
+
+Point(1) = {xmin, ymin, 0, wall};
+Point(2) = {xmin, ymax, 0, wall};
+Point(3) = {xmax, ymax, 0, wall};
+Point(4) = {xmax, ymin, 0, wall};
 Line(1) = {2, 3};
 Line(2) = {3, 4};
 Line(3) = {4, 1};
