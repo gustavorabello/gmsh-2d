@@ -2,7 +2,7 @@
 
 nb = 1;
 b1 = 0.05;
-wall = 0.15;
+wall = 0.05;
 
 D = 1.0;
 r = 0.3*D;
@@ -33,7 +33,7 @@ zc = 0.0;
 
 L1 = 10*D;
 //L2 = 128.87*D;
-L2 = 40*D;
+L2 = 20*D;
 
 t=0;
 Include '../bubbleShape/taylor.geo';
@@ -46,12 +46,12 @@ Point(k+4) = {L1+L2,  (0.5+ (L2*4.5*D/128.87)), 0,wall};
 Point(k+5) = {L1,     D/2.0,                    0,wall};
 Point(k+6) = {0,      D/2.0,                    0,wall};
 
-Line(7) = {k+01, k+02};
-Line(8) = {k+02, k+03};
-Line(9) = {k+03, k+04};
-Line(10) = {k+04, k+05};
-Line(11) = {k+05, k+06};
-Line(12) = {k+06, k+01};
+Line(7) = {k+02, k+01};
+Line(8) = {k+03, k+02};
+Line(9) = {k+04, k+03};
+Line(10) = {k+05, k+04};
+Line(11) = {k+06, k+05};
+Line(12) = {k+01, k+06};
 
 Physical Line('wallNoSlip') = {7, 8, 9, 10, 11, 12};
 
