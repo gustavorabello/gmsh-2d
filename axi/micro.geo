@@ -5,7 +5,7 @@ D = 1.0; // channel diameter
 /* Case 17: */
 l1 = 0.025; // very fine
 l2 = 0.05; // fine
-l3 = 0.14; // coarse
+l3 = 0.014; // coarse
 
 r = 0.3*D; //0.45*D;
 body = 1.88834*D; //0.417042*D;
@@ -90,7 +90,7 @@ Characteristic Length { k+3, k+4, k+5, k+6 } = l2;
 /* Defining boundary conditions: */
 Physical Line('wallParabolic3d') = { in };
 Physical Line('wallOutflow') = { out };
-Physical Line('wallNoSlip') = { 5, top, 7 };
+Physical Line('wallNoSlip') = { 5, top, 7};
 Physical Line('wallNormalV') = { -4, -6, bc, br, bl, left, right };  // symmetry bc
 Physical Line(Sprintf("bubble%g",1)) = {1, 2, 3};
 

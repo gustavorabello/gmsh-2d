@@ -1,6 +1,6 @@
 /* upper half of a symmetric channel */
 //Mesh.ElementOrder = 2;
-wall = 0.1;
+wall = 0.05;
 
 D = 1.0; // channel height
 wallLength = 3.0; // channel length
