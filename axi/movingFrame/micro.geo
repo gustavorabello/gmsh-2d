@@ -10,8 +10,8 @@ l3 = 0.014; // coarse
 r = 0.3*D; //0.45*D;
 body = 1.88834*D; //0.417042*D;
 
-ll = 0.5*D; // length of the left section
-lr = 1.5*D; // length of the right section
+ll = 1.5*D; // length of the left section
+lr = 0.5*D; // length of the right section
 
 /*  Case 18:
 l1 = 0.05; // very fine
@@ -88,9 +88,8 @@ out = newl; Line(out) = {k+8, k+7};
 Characteristic Length { k+3, k+4, k+5, k+6 } = l2;
 
 /* Defining boundary conditions: */
-Physical Line('wallInflowUParabolic3d') = { in };
-Physical Line('wallOutflow') = { out };
-Physical Line('wallNoSlip') = { 5, top, 7};
+Physical Line('wallInflowUParabolic3d') = { in,out };
+Physical Line('wallNoSlipPressure') = { 5, top, 7};
 Physical Line('wallNormalV') = { -4, -6, bc, br, bl, left, right };  // symmetry bc
 Physical Line(Sprintf("bubble%g",1)) = {1, 2, 3};
 

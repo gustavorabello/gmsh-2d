@@ -41,8 +41,8 @@ EndIf
 If( Case > 0 )
  Printf("Gustavo");
  D = 6.0;
- l = 8;
- dist = 2.0;
+ l = 6;
+ dist = 4.0;
 EndIf
 
 /* Defining bubble shape (circle with diameter 1, cetered at origin): */
@@ -83,7 +83,7 @@ If ( Case < 0 )
 EndIf
 If ( Case >= 0 )
  Printf("No-slip walls");
- Physical Line('wallNoSlip') = { top, in };
+ Physical Line('wallInflowZeroU') = { top, in };
  Physical Line('wallOutflow') = { out };
  Physical Line('wallNormalV') = { bl, br, left, right };  // symmetry bc
 EndIf
