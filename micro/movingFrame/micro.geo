@@ -16,7 +16,7 @@ For t In {0:nb-1}
  zc = 0.0;
 
  // include torus.geo file
- Include '../bubbleShape/taylor.geo';
+ Include '../../bubbleShape/taylor.geo';
 EndFor
 
 wallLength1 = 1.5*D;
@@ -51,7 +51,6 @@ Extrude {wallLength3, 0, 0} {
 Line(k+13) = {k+07, k+08};
 Line(k+14) = {k+01, k+02};
 Physical Line('wallInflowUParabolic') = {k+14};
-//Physical Line('wallInflowU') = {k+14};
 Physical Line('wallNoSlip') = {7, 9, 11, 12, 10, 8};
 Physical Line('wallOutflow') = {k+13};
 
