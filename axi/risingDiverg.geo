@@ -86,7 +86,7 @@ Characteristic Length { k+3, k+4, k+5, k+6 } = l2;
 
 /* Defining boundary conditions: */
 Physical Line('wallOutflow') = { out };
-Physical Line('wallNoSlip') = { in, 5, top, 7};
+Physical Line('wallNoSlip') = { in, 5, top, 7, 15};
 Physical Line('wallNormalV') = { -4, -6, bc, br, bl, left, right };  // symmetry bc
 Physical Line(Sprintf("bubble%g",1)) = {1, 2, 3};
 
