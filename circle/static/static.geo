@@ -29,6 +29,7 @@ Line(k+7) = {k+7, k+6};
 Line(k+8) = {k+6, k+9};
 
 Physical Line('wallNoSlip') = {k+6, k+7, k+8, k+5};
+//Physical Line('wallNoSlipPressure') = {k+6, k+7, k+8, k+5};
 
 j=200*0;
 For t In {1:nb}
