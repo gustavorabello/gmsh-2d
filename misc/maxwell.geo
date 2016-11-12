@@ -1,15 +1,21 @@
 // Gmsh project created on Thu Jun  4 09:24:57 2009
 
-r1 = 0.005; 
-r2 = 0.007; 
+//r1 = 0.005; 
+//r2 = 0.007; 
+r1 = 0.0022; 
+r2 = 0.0032; 
 material = 0.001;
-wall = 0.6;
+wall = 0.1;
 
 // Nondimensional coordinates 
 xmin = 0.0;
 xmax = 0.1875;
 ymin = 0.00;
 ymax = 0.05;
+
+//xc = 0.177;
+xc = xmax/2.0;
+yc = ymax/2.0;
 
 Point(1) = {xmin, ymin, 0, wall};
 Point(2) = {xmin, ymax, 0, wall};
@@ -23,15 +29,15 @@ Line(4) = {1, 2};
 Transfinite Line {1, 3} = 100 Using Progression 1;
 Transfinite Line {4, 2} = 20 Using Progression 1;
 
-Point(5)  = {   0.16,    0.025, 0, material};
-Point(6)  = {   0.16, 0.025+r1, 0, material};
-Point(7)  = {0.16+r1,    0.025, 0, material};
-Point(8)  = {   0.16, 0.025-r1, 0, material};
-Point(9)  = {0.16-r1,    0.025, 0, material};
-Point(10) = {   0.16, 0.025+r2, 0, material};
-Point(11) = {0.16+r2,    0.025, 0, material};
-Point(12) = {   0.16, 0.025-r2, 0, material};
-Point(13) = {0.16-r2,    0.025, 0, material};
+Point(5)  = {   xc,    yc, 0, material};
+Point(6)  = {   xc, yc+r1, 0, material};
+Point(7)  = {xc+r1,    yc, 0, material};
+Point(8)  = {   xc, yc-r1, 0, material};
+Point(9)  = {xc-r1,    yc, 0, material};
+Point(10) = {   xc, yc+r2, 0, material};
+Point(11) = {xc+r2,    yc, 0, material};
+Point(12) = {   xc, yc-r2, 0, material};
+Point(13) = {xc-r2,    yc, 0, material};
                                    
 Ellipse(7) = {6, 5, 5, 7};
 Ellipse(8) = {7, 5, 5, 8};
