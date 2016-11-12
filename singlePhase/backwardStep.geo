@@ -1,5 +1,5 @@
 
-wall = 0.05;
+wall = 0.08;
 
 L = 1.0;
 
@@ -20,8 +20,8 @@ L = 1.0;
 Point(0)  = {0.0,     L, 0.0,  wall}; // p0
 Point(1)  = {1*L,     L, 0.0,  wall}; // p1
 Point(2)  = {1*L,   0.0, 0.0,  wall}; // p2
-Point(3)  = {L+3*L, 0.0, 0.0,  wall}; // p3
-Point(4)  = {L+3*L, 2*L, 0.0,  wall}; // p4
+Point(3)  = {L+6*L, 0.0, 0.0,  wall}; // p3
+Point(4)  = {L+6*L, 2*L, 0.0,  wall}; // p4
 Point(5)  = {0.0  , 2*L, 0.0,  wall}; // p5
 
 
