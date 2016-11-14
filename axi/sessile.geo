@@ -1,7 +1,7 @@
 // sphere for axisymmetric static or oscillating drop simulation
 
 l1 = 0.025; // fine
-l2 = 0.025; // coarse
+l2 = 0.1; // coarse
 A = 0.0; // circle perturbation
 
 l = 3.0; // length of the domain
@@ -41,3 +41,5 @@ Physical Line(Sprintf("bubble%g",1)) = {1, 2};
 Physical Line('wallNoSlip') = { top, in };
 Physical Line('wallOutflow') = { out };
 Physical Line('wallNormalV') = { bl, br, left, right };  // symmetry bc
+
+Transfinite Line {4, 5} = 20 Using Progression 1;
