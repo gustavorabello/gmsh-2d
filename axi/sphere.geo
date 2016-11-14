@@ -38,5 +38,5 @@ out = newl; Line(out) = {k+3, k+4};
 
 /* Boundary conditions: */
 Physical Line(Sprintf("bubble%g",1)) = {1, 2};
-Physical Line('wallNoSlipP') = { top, in, out };
+Physical Line('wallNoSlipPressure') = { top, in, out };
 Physical Line('wallNormalV') = { bl, br, left, right };  // symmetry bc

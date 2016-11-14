@@ -11,7 +11,7 @@ pert = (0.0/100)*r;
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 3.0*r;
+ xc = 5.0*r;
  yc = 2.0*r;
 
  // include torus.geo file
@@ -20,8 +20,8 @@ EndFor
 
 k=10000;
 Point(k+6) = {0, 0, 0,wall};
-Point(k+7) = {3*D, 0, 0,wall};
-Point(k+8) = {3*D, 3*D, 0,wall};
+Point(k+7) = {5*D, 0, 0,wall};
+Point(k+8) = {5*D, 3*D, 0,wall};
 Point(k+9) = {0, 3*D, 0,wall};
 
 Line(k+5) = {k+9, k+8};
