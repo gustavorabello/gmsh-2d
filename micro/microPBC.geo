@@ -1,17 +1,17 @@
 
 
 nb = 1;
-b1 = 0.01;
-wall = 0.01;
+b1 = 0.02;
+wall = 0.02;
 
 D = 1.0;
 r = 0.3*D;
 body = 1.5*D;
-slug = 0.1*r;
+slug = 0.1*D;
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 0.0+(slug+body+r+r/2.0)*t;
+ xc = 0.3+(slug+body+D/2.0)*t;
  yc = 0.0;
  zc = 0.0;
 
@@ -19,9 +19,9 @@ For t In {0:nb-1}
  Include '../bubbleShape/taylor.geo';
 EndFor
 
-wallLength1 = 1.0*D;
+wallLength1 = 0.3*D;
 wallLength2 = 0.6+nb*(body+3*r/2.0)+(nb-1)*slug;
-wallLength3 = 0.7*D;
+wallLength3 = 0.2*D;
 
 
 /* 
@@ -39,7 +39,7 @@ k=10000;
 Point(k+1) = {-wallLength1 ,-(D/2.0), 0.0, wall}; // p1
 Point(k+2) = {-wallLength1 ,+(D/2.0), 0.0, wall}; // p2
 
-Extrude {wallLength1-0.3, 0, 0} {
+Extrude {wallLength1, 0, 0} {
   Point{k+01, k+02};
 }
 Extrude {wallLength2, 0, 0} {
@@ -53,7 +53,9 @@ Line(k+14) = {k+01, k+02};
 
 Periodic Line {k+13} = {k+14};
 
-Physical Line('wallNoSlip') = {k+13,k+14,7, 9, 11, 12, 10, 8};
+Physical Line('wallNoSlip') = {-7, -9, -11, 12, 10, 8};
+Physical Line('wallLeft') = {k+14};
+Physical Line('wallRight') = {-(k+13)};
 
 j=200*0;
 For t In {1:nb}

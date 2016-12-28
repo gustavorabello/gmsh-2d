@@ -18,5 +18,6 @@ Line(r) = {4, 2};
 t = newl;
 Line(t) = {2, 1};
 
-Physical Line('wallHeatOne') = {l,t};
+Physical Line('wallHeatOne') = {t,l};
 Physical Line('wallHeat') = {r,b};
+//Physical Line('wallHeatFlux') = {l};

@@ -11,7 +11,7 @@ slug = 0.7*r;
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 4.0+(slug+body+r+r/2.0)*t;
+ xc = 3.0+(slug+body+r+r/2.0)*t;
  yc = 0.0;
  zc = 0.0;
 
@@ -22,9 +22,9 @@ EndFor
 A = 0.05;
 D = 0.5;
 k = 1;
-stretch=16;
+stretch=8;
 phase = 0;
-nCycles = 4;
+nCycles = 2;
 nPoints = 40;
 nTheta = 4;
 
@@ -64,7 +64,8 @@ s1=newreg;
 Line(s1) = {k+1, k+1+nPoints};
 Line(s1+1) = {k+nPoints, k+2*nPoints};
 
-Physical Line('wallNoSlip') = {k+1:k+(nPoints-1)*2:1,s1,s1+1};
+Physical Line('wallOutflow') = {s1+1};
+Physical Line('wallNoSlip') = {k+1:k+(nPoints-1)*2:1,s1};
 
 j=200*0;
 For t In {1:nb}

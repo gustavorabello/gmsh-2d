@@ -53,9 +53,9 @@ Line(k+14) = {k+01, k+02};
 
 Periodic Line {k+13} = {k+14};
 
-Physical Line('wallInflowZeroU') = {7, 9, 11, 12, 10, 8};
+Physical Line('wallInflowZeroU') = {-7, -9, -11, 12, 10, 8};
 Physical Line('wallLeft') = {k+14};
-Physical Line('wallRight') = {k+13};
+Physical Line('wallRight') = {-(k+13)};
 
 j=200*0;
 For t In {1:nb}

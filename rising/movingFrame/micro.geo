@@ -5,7 +5,7 @@ b1 = 0.04;
 wall = 0.04;
 
 D = 1.0;
-r = 0.37*D;
+r = 0.3*D;
 body = 1.5*D;
 slug = 0.7*r;
 
@@ -50,7 +50,8 @@ Extrude {wallLength3, 0, 0} {
 }
 Line(k+13) = {k+07, k+08};
 Line(k+14) = {k+01, k+02};
-Physical Line('wallInflowZeroU') = {k+13,k+14,7,9,11,12,10,8};
+Physical Line('wallInflowZeroU') = {k+13,7,9,11,12,10,8};
+Physical Line('wallOutflow') = {k+14};
 
 
 j=200*0;

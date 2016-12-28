@@ -30,7 +30,8 @@ Line(k+6) = {k+8, k+7};
 Line(k+7) = {k+7, k+6};
 Line(k+8) = {k+6, k+9};
 
-Physical Line('wallInflowZeroV') = {k+6, k+7, k+8, k+5};
+Physical Line('wallInflowZeroV') = {k+6, k+8, k+5};
+Physical Line('wallOutflow') = {k+7};
 
 j=200*0;
 For t In {1:nb}

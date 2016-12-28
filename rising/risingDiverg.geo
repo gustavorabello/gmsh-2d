@@ -1,17 +1,17 @@
 
 
 nb = 1;
-b1 = 0.06;
-wall = 0.08;
+b1 = 0.03;
+wall = 0.05;
 
 D = 1.0;
-r = 0.30*D;
-body = 1*D;
+r = 0.37*D;
+body = 2.5*D;
 slug = 0.7*r;
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 1.0*D+(slug+body+r+r/2.0)*t;
+ xc = 1.5*D+(slug+body+r+r/2.0)*t;
  yc = 0.0;
  zc = 0.0;
 
@@ -32,9 +32,9 @@ EndFor
  *              |----------|--------------------------------------| 
  * */
 
-L1 = 4*D;
+L1 = 3*D;
 //L2 = 128.87*D;
-L2 = 12*D;
+L2 = 6*D;
 
 k=10000;
 Point(k+1) = {0,     -D/2.0,                    0,wall};
@@ -50,5 +50,14 @@ Point(k+6) = {L1+L2, +(0.5+ (L2*4.5*D/128.87)), 0,wall};
 
 Line(k+3) = {k+4, k+5};
 Line(k+4) = {k+5, k+6};
-Line(10005) = {10001, 10004};
-Line(10006) = {10003, 10006};
+Line(k+5) = {k+1, k+4};
+Line(k+6) = {k+3, k+6};
+
+Physical Line("wallNoSlip") = {k+4, k+3, k+5, -(k+1), -(k+2)};
+Physical Line("wallOutflow") = {-(k+6)};
+
+j=200*0;
+For t In {1:nb}
+Physical Line(Sprintf("bubble%g",t)) = {j+6, j+2, j+1, j+5, j+4, j+3};
+ j=200*t;
+EndFor
