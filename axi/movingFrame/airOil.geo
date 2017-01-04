@@ -3,8 +3,8 @@ Case = 3;
 l1 = 0.04; // fine
 l2 = 0.1;  // coarse
 
-D = 8.0; // channel diameter (case 0)
-l = 12.0; // total length of the domain
+D = 5.0; // channel diameter (case 0)
+l = 20.0; // total length of the domain
 dist = 2.0; // distance between the center and bottom (left) boundary
 twoD = 0.0;
 If( Case == -314 )

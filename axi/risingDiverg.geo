@@ -1,41 +1,25 @@
 // axisymmetric bubble in divergent channel
-D = 1.0; // channel diameter
-//Mesh.ElementOrder = 2;
+wall = 0.08; 
+b1 = 0.02; 
+nb = 1; 
+ 
+D = 1.0; 
+r = 0.35*D; 
+body = 3.5*D; 
+slug = 0.7*r; 
 
-/* Case 17: */
-l1 = 0.025; // very fine
-l2 = 0.05; // fine
-l3 = 0.014; // coarse
+For t In {0:nb-1}
+ // bubble's coordinates
+ xc = 0.0+(slug+body+r+r/2.0)*t;
+ yc = 0.0;
+ zc = 0.0;
 
-r = 0.4*D; //0.45*D;
-body = 1.0*D; //0.417042*D;
+ // include torus.geo file
+ Include '../bubbleShape/taylorAxi.geo';
+EndFor
 
-ll = 0.5*D; // length of the left section
-//lr = 128.87*D; // length of the right section
-lr = 6.0*D; // length of the right section
-
-/* Defining bubble shape: */
-xc = 0.0;
-yc = 0.0;
-
-/*
- *              5           2
- *              o --------- o 
- *            /              `,     
- *          6 o o 4       1 o  o 3
- *
- */
-
-Point(1) = {  xc+r+body,   yc, 0.0, l2}; // center
-Point(2) = {  xc+r+body, yc+r, 0.0, l1}; // up
-Point(3) = {xc+r+body+r,   yc, 0.0, l1}; // right
-Point(4) = {       xc+r,   yc, 0.0, l2}; // center
-Point(5) = {       xc+r, yc+r, 0.0, l1}; // up
-Point(6) = {         xc,   yc, 0.0, l1}; // left
-
-Ellipse(1) = { 2, 1, 1, 3 };
-Ellipse(2) = { 6, 4, 4, 5 };
-Line(3) = { 5, 2 };
+ll = 2.5*D; // length of the left section
+lr = 30.5*D; // length of the right section
 
 dist = 0.5*r; // distance from the bubble to the left and right sections
 
@@ -54,20 +38,20 @@ k = newp;
  *    |----------------|                  |-----------------| 
  */
 
-Point(k+1) = {-(ll+dist),   0.0, 0.0, l3};
-Point(k+2) = {-(ll+dist), D/2.0, 0.0, l3};
+Point(k+1) = {-(ll+dist),   0.0, 0.0, wall};
+Point(k+2) = {-(ll+dist), D/2.0, 0.0, wall};
 
 Extrude {ll, 0, 0} {
   Point{k+1, k+2};
 }
 
-Point(k+5) = {body+2*r+dist,   0.0, 0.0, l3};
-Point(k+6) = {body+2*r+dist, D/2.0, 0.0, l3};
+Point(k+5) = {body+2*r+dist,   0.0, 0.0, wall};
+Point(k+6) = {body+2*r+dist, D/2.0, 0.0, wall};
 
 Extrude {lr, 0, 0} {
   Point{k+5};
 }
-Point(k+8) = {body+2*r+dist+lr, +(0.5+ (lr*4.5*D/128.87)), 0.0, l3};
+Point(k+8) = {body+2*r+dist+lr, +(0.5+ (lr*4.5*D/128.87)), 0.0, wall};
 Line(15) = {13, 15};
 
 top = newl; Line(top) = { k+4, k+6 };
@@ -82,7 +66,7 @@ right = newl; Line(right) = { k+5, 3 };
 in = newl; Line(in) = {k+1, k+2};
 out = newl; Line(out) = {k+8, k+7};
 
-Characteristic Length { k+3, k+4, k+5, k+6 } = l2;
+Characteristic Length { k+3, k+4, k+5, k+6 } = wall;
 
 /* Defining boundary conditions: */
 Physical Line('wallOutflow') = { out };
