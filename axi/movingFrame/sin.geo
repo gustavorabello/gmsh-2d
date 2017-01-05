@@ -1,15 +1,13 @@
 // Gmsh project created on Thu Jun  4 09:24:57 2009
 
 nb = 1;
-b1 = 0.03;
-wall = 0.03;
+b1 = 0.04;
+wall = 0.04;
 
 D = 1.0;
-kappa = 0.92; // kappa = 0.54, 0.78, 0.92
-r = kappa*D/2.0;
-body = 1*D;
+r = 0.3*D;
+body = 1.5*D;
 slug = 0.7*r;
-pert = (0.0/100.0)*r;
 
 /* sinusoidal wall configuration
  *
@@ -35,35 +33,18 @@ wavenum = 2*Pi/lambda;
 nPoints = 40; // total number of points in the sinusoidal line
 nTheta = 4; // number of rotations
 
-xc = 1.25*lambda;
-yc = 0.0;
-l1 = 0.04; // fine
-l2 = 0.1;  // coarse
-l = 6;
-dist = 4.0;
-twoD = 0.0;
+For t In {0:nb-1}
+ // bubble's coordinates
+ xc = 1.25*lambda+(slug+body+r+r/2.0)*t;
+ yc = 0.0;
+ zc = 0.0;
 
-/* Defining bubble shape (circle with diameter 1, cetered at origin): */
-Point(1) = {     xc, twoD, 0.0, l1}; // center
-Point(2) = {     xc, 0.5+twoD, 0.0, l1}; // up
-Point(3) = { xc+0.5, twoD, 0.0, l1}; // right
-Point(4) = { xc-0.5, twoD, 0.0, l1}; // left
-Ellipse(1) = { 2, 1, 1, 3 };
-Ellipse(2) = { 4, 1, 1, 2 };
+ // include torus.geo file
+ //Include '../../bubbleShape/sphereAxi.geo';
+ Include '../../bubbleShape/taylorAxi.geo';
+EndFor
 
-k = newp;
-/*  k+2                                   k+3
- *    o                                    o
- *
- *
- *   k+1   4       3                      k+4
- *    o----o-------o-----------------------o
- */
-Point(k+1) = {   0.0, twoD, 0.0, l2};
-Point(k+2) = { stretch, twoD, 0.0, l2};
-
-
-k = newp;
+k = 10000;
 j = 1+k;
 // top line
 For i In {1:nPoints}
@@ -81,49 +62,37 @@ For i In {1:nPoints-1}
  j = j + 1;
 EndFor
 
+/*  
+ *   k+1             k+2  6           3  k+3               k+5
+ *    o----------------o---o------------o---o-----------------o
+ *    
+ *    |       ll       | r |     body   | r |       lr        |
+ *    |<-------------->|<->|<---------->|<->|<--------------->|
+ */
 
-/*--------------------------------------------------
- * //top = newl; Line(top) = { k+2, k+3 };
- * bl = newl; Line(bl) = { 6, 4 };
- * br = newl; Line(br) = { 3, 9 };
- * left = newl; Line(left) = { 6, 7 };
- * right = newl; Line(right) = { k+4, 3 };
- * in = newl; Line(in) = {k+1, k+2};
- * out = newl; Line(out) = {k+3, k+4};
- * --------------------------------------------------*/
+k = k + nPoints;
+Point(k+1) = {0.0, 0.0, 0.0, wall};
+Point(k+2) = {stretch, 0.0, 0.0, wall};
 
-left = newl; Line(left) = { 6, 4 };
-right = newl; Line(right) = { 3, 7 };
-bl = newl; Line(bl) = { 4, 1 };
-br = newl; Line(br) = { 1, 3 };
-left = newl; Line(left) = { 6, 9 };
-right = newl; Line(right) = { 7, 48 };
+Line(k+1) = {k+2, 3};
+Line(k+2) = {3, 1};
+Line(k+3) = {1, 4};
+Line(k+4) = {4, k+1};
+
+// lines in both ends
+Line(k+5) = {k+1, k-nPoints+1};
+Line(k+6) = {k+2, k+0};
+
+Physical Line('wallInflowZeroU') = {k+6};
+Physical Line('wallOutflow') = {k+5};
+Physical Line('wallMovingY') = {k-nPoints+1:k-1:1};
+Physical Line('wallNormalV') = {k+1,k+2,k+3,k+4};
+
+j=200*0;
+For t In {1:nb}
+Physical Line(Sprintf("bubble%g",t)) = {j+6, j+2, j+1, j+5, j+4, j+3};
+ j=200*t;
+EndFor
 
 
-/*--------------------------------------------------
- * // lines in both ends
- * s1=newreg;
- * Line(s1) = {k+1, k+1+nPoints};
- * Line(s1+1) = {k+nPoints, k+2*nPoints};
- * --------------------------------------------------*/
-
-/*--------------------------------------------------
- * Physical Line('wallInflowZeroU') = {s1+1};
- * Physical Line('wallOutflow') = {s1};
- * Physical Line('wallMovingY') = {k+1:k+(nPoints-1)*2:1};
- * 
- * j=200*0;
- * For t In {1:nb}
- * Physical Line(Sprintf("bubble%g",t)) = {j+6, j+2, j+1, j+5, j+4, j+3};
- *  j=200*t;
- * EndFor
- * 
- * --------------------------------------------------*/
-/*--------------------------------------------------
- * Point(10041) = {-1.6, -2661.9, 0, 1.0};
- * Point(10042) = {1, -0.8, 0, 1.0};
- * Point(10043) = {-12.8, -2679.7, 0, 1.0};
- * Point(10044) = {4, -0.8, 0, 1.0};
- * Point(10045) = {5.7, -0.9, 0, 1.0};
- * Point(10046) = {8, -0.9, 0, 1.0};
- * --------------------------------------------------*/
+ 
