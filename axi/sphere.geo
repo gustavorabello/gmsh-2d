@@ -1,19 +1,24 @@
 // sphere for axisymmetric static or oscillating drop simulation
 
-l1 = 0.025; // fine
-l2 = 0.025; // coarse
-A = 0.0; // circle perturbation
+// axisymmetric bubble in divergent channel
+wall = 0.04; 
+b1 = 0.02; 
+nb = 1; 
 
-l = 3.0; // length of the domain
+wallLength = 4;
+ 
+D = 1.0; 
+r = 0.5*D; 
+pert = (0.0/100.0)*r; // circle perturbation
 
-/* Defining bubble shape (half ellipse): */
-r = 0.5;
-Point(1) = { 0.0, 0.0, 0.0, l1}; // center
-Point(2) = { 0.0, r+A, 0.0, l1}; // up
-Point(3) = {   r, 0.0, 0.0, l1}; // right
-Point(4) = {  -r, 0.0, 0.0, l1}; // left
-Ellipse(1) = { 2, 1, 2, 3 };
-Ellipse(2) = { 4, 1, 2, 2 };
+For t In {0:nb-1}
+ // bubble's coordinates
+ xc = 0.0;
+ yc = 0.0;
+
+ // include torus.geo file
+ Include '../bubbleShape/sphereAxi.geo';
+EndFor
 
 k = newp;
 /*  k+2                          k+3
@@ -23,10 +28,10 @@ k = newp;
  *   k+1       4       3         k+4
  *    o--------o-------o----------o
  */
-Point(k+1) = {-l/2,   0.0, 0.0, l2};
-Point(k+2) = {-l/2, l/2.0, 0.0, l2};
-Point(k+3) = { l/2, l/2.0, 0.0, l2};
-Point(k+4) = { l/2,   0.0, 0.0, l2};
+Point(k+1) = {-wallLength/2,            0.0, 0.0, wall};
+Point(k+2) = {-wallLength/2, wallLength/2.0, 0.0, wall};
+Point(k+3) = { wallLength/2, wallLength/2.0, 0.0, wall};
+Point(k+4) = { wallLength/2,            0.0, 0.0, wall};
 
 top = newl; Line(top) = { k+2, k+3 };
 bl = newl; Line(bl) = { 1, 4 };
@@ -37,6 +42,6 @@ in = newl; Line(in) = {k+1, k+2};
 out = newl; Line(out) = {k+3, k+4};
 
 /* Boundary conditions: */
-Physical Line(Sprintf("bubble%g",1)) = {1, 2};
+Physical Line(Sprintf("bubble%g",1)) = {1, -2};
 Physical Line('wallNoSlipPressure') = { top, in, out };
 Physical Line('wallNormalV') = { bl, br, left, right };  // symmetry bc

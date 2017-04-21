@@ -1,6 +1,6 @@
 
 nb = 1;
-b1 = 0.04;
+b1 = 0.02;
 wall = 20*b1;
 
 D = 1.0;
@@ -27,8 +27,8 @@ Line(k+6) = {k+8, k+7};
 Line(k+7) = {k+7, k+6};
 Line(k+8) = {k+6, k+9};
 
-Physical Line('wallNoSlip') = {k+6, k+7, k+8, k+5};
-//Physical Line('wallNoSlipPressure') = {k+6, k+7, k+8, k+5};
+//Physical Line('wallNoSlip') = {k+6, k+7, k+8, k+5};
+Physical Line('wallNoSlipPressure') = {k+6, k+7, k+8, k+5};
 
 j=200*0;
 For t In {1:nb}

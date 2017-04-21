@@ -7,13 +7,13 @@ j=200*t;
  *              2
  *              o  
  *            /   \     
- *         5 o  o  o 4    
- *            
+ *         4 o  o  o 3    
+ *              1
  * */
-Point(i+1) = {xc+r/2.0+body, yc, zc, b1}; // center
-Point(i+2) = {xc+r/2.0+body, yc+r, zc, b1}; // up
-Point(i+3) = {xc+r/2.0+body+r, yc, zc, b1}; // right
-Point(i+4) = {xc+r/2.0+body-r, yc, zc, b1}; // right
+Point(i+1) = {xc, yc, 0.0, b1};             // center
+Point(i+2) = {xc, yc+r-pert, 0.0, b1};      // up
+Point(i+3) = {xc+r+pert, yc, 0.0, b1}; // right
+Point(i+4) = {xc-r-pert, yc, 0.0, b1};      // left
 Ellipse(j+1) = {i+2, i+1, i+1, i+3};
 Ellipse(j+2) = {i+2, i+1, i+1, i+4};
 

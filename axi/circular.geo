@@ -6,7 +6,7 @@ nb = 1;
  
 D = 1.0; 
 r = 0.35*D; 
-body = 3.5*D; 
+body = 1.5*D; 
 slug = 0.7*r; 
 
 For t In {0:nb-1}

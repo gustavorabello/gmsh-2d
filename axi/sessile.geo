@@ -4,7 +4,7 @@ l1 = 0.025; // fine
 l2 = 0.1; // coarse
 A = 0.0; // circle perturbation
 
-l = 3.0; // length of the domain
+l = 5.0; // length of the domain
 
 /* Defining bubble shape (half ellipse): */
 r = 0.5;
@@ -23,8 +23,8 @@ k = newp;
  *   k+1       4       3         k+4
  *    o--------o-------o----------o
  */
-Point(k+1) = {-l/3,   0.0, 0.0, l2};
-Point(k+2) = {-l/3, l/2.0, 0.0, l2};
+Point(k+1) = {-l/5,   0.0, 0.0, l2};
+Point(k+2) = {-l/5, l/2.0, 0.0, l2};
 Point(k+3) = { l/2, l/2.0, 0.0, l2};
 Point(k+4) = { l/2,   0.0, 0.0, l2};
 

@@ -1,12 +1,11 @@
 // axisymmetric rising bubble using fixed frame
-l1 = 0.04; // fine
+l1 = 0.03; // fine
 l2 = 0.1;  // coarse
 
 dist = 2.0; // distance between the center and bottom (left) boundary
 twoD = 0.0;
-D = 6.0;
-l = 8;
- dist = 2.0;
+D = 10.0;
+l = 12;
 
 /* Defining bubble shape (circle with diameter 1, cetered at origin): */
 Point(1) = {  0.0, twoD, 0.0, l1}; // center
