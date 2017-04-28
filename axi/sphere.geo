@@ -1,7 +1,7 @@
 // sphere for axisymmetric static or oscillating drop simulation
 
 // axisymmetric bubble in divergent channel
-wall = 0.04; 
+wall = 0.02; 
 b1 = 0.02; 
 nb = 1; 
 
@@ -45,3 +45,4 @@ out = newl; Line(out) = {k+3, k+4};
 Physical Line(Sprintf("bubble%g",1)) = {1, -2};
 Physical Line('wallNoSlipPressure') = { top, in, out };
 Physical Line('wallNormalV') = { bl, br, left, right };  // symmetry bc
+

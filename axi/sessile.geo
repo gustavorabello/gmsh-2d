@@ -1,17 +1,17 @@
 // sphere for axisymmetric static or oscillating drop simulation
 
-l1 = 0.025; // fine
-l2 = 0.1; // coarse
+b1 = 0.01; // fine
+wall = 0.02; // coarse
 A = 0.0; // circle perturbation
 
 l = 5.0; // length of the domain
 
 /* Defining bubble shape (half ellipse): */
 r = 0.5;
-Point(1) = { 0.0, 0.0, 0.0, l1}; // center
-Point(2) = { 0.0, r+A, 0.0, l1}; // up
-Point(3) = {   r, 0.0, 0.0, l1}; // right
-Point(4) = {  -r, 0.0, 0.0, l1}; // left
+Point(1) = { 0.0, 0.0, 0.0, b1}; // center
+Point(2) = { 0.0, r+A, 0.0, b1}; // up
+Point(3) = {   r, 0.0, 0.0, b1}; // right
+Point(4) = {  -r, 0.0, 0.0, b1}; // left
 Ellipse(1) = { 2, 1, 2, 3 };
 Ellipse(2) = { 4, 1, 2, 2 };
 
@@ -23,10 +23,10 @@ k = newp;
  *   k+1       4       3         k+4
  *    o--------o-------o----------o
  */
-Point(k+1) = {-l/5,   0.0, 0.0, l2};
-Point(k+2) = {-l/5, l/2.0, 0.0, l2};
-Point(k+3) = { l/2, l/2.0, 0.0, l2};
-Point(k+4) = { l/2,   0.0, 0.0, l2};
+Point(k+1) = {-l/5,   0.0, 0.0, wall};
+Point(k+2) = {-l/5, l/2.0, 0.0, wall};
+Point(k+3) = { l/2, l/2.0, 0.0, wall};
+Point(k+4) = { l/2,   0.0, 0.0, wall};
 
 top = newl; Line(top) = { k+2, k+3 };
 bl = newl; Line(bl) = { 1, 4 };
