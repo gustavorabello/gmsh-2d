@@ -21,7 +21,7 @@ Line Loop(5) = {3, -2, -1, -4};
 //+
 Plane Surface(6) = {5};
 
-Physical Line("wallNoSlip") = {1};
+Physical Line("wallNoSlipConcentration") = {1};
 Physical Line("wallOutflow") = {2};
 Physical Line("wallNormalV") = {3}; 
 Physical Line("wallInflowU") = {4}; 

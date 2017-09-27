@@ -95,7 +95,8 @@ Line Loop(25) = {23, 24, 1, -2, 12, -3, 13, -4, 14, -5, 15, -6, 16, -7, 17, -8, 
 Plane Surface(26) = {25};
 
 //+
-Physical Line('wallNoSlip') = {1,12,13,14,15,16,17,18,19,20,21,2,3,4,5,6,7,8,9,10,11};
+Physical Line('wallNoSlipConcentration') = {2,3,4,5,6,7,8,9,10,11};
+Physical Line('wallNoSlip') = {1,12,13,14,15,16,17,18,19,20,21};
 //+
 Physical Line('wallInflowU') = {24};
 //+

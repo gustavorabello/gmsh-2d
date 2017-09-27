@@ -25,7 +25,8 @@ Physical Line('wallOutflow') = {l+2};
 
 // upper wall:
 Line(l+3) = {2, 1};
-Physical Line('wallNoSlip') = {l+3};
+//Physical Line('wallNoSlip') = {l+3};
+Physical Line('wallNoSlipConcentration') = {l+3};
 
 //Transfinite Line {1, 3} = 100 Using Progression 1;
 //Transfinite Line {4, 2} = 20 Using Progression 1;

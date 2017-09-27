@@ -1,7 +1,8 @@
 // Gmsh project created on Fri Dec 30 16:33:57 2016
 
-lc = DefineNumber[ 0.1, Name "Parameters/lc" ]; 
-Point(1)={0.000000,2.000000,0,lc}; 
+la = DefineNumber[ 0.1, Name "Parameters/la" ]; 
+lc = DefineNumber[ 0.01, Name "Parameters/lc" ]; 
+Point(1)={0.000000,2.000000,0,la}; 
 Point(2)={1.850000,2.000000,0,lc}; 
 Point(3)={2.150000,2.000000,0,lc}; 
 Point(4)={2.531200,2.015500,0,lc}; 
@@ -74,8 +75,8 @@ Circle(28)={39,29,15};
 Circle(29)={40,30,17}; 
 Circle(30)={41,31,19}; 
 Circle(31)={42,32,21}; 
-Point(43)={0.000000,3.300000,0,lc}; 
-Point(44)={10.000000,3.300000,0,lc}; 
+Point(43)={0.000000,3.300000,0,la}; 
+Point(44)={10.000000,3.300000,0,la}; 
 
 Line(32)={43,44}; 
 Line(33)={43,1}; 
@@ -86,7 +87,8 @@ Line Loop(35) = {32, 34, -11, -31, -21, -10, -30, -20, -9, -29, -19, -8, -28, -1
 //+
 Plane Surface(36) = {35};
 
-Physical Line("wallNoSlip") = {12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,1,2,3,4,5,6,7,8,9,10,11}; 
+Physical Line("wallNoSlip") = {1,2,3,4,5,6,7,8,9,10,11}; 
+Physical Line("wallNoSlipConcentration") = {12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}; 
 Physical Line("wallNormalV") = {32}; 
 Physical Line("wallInflowU") = {33}; 
 Physical Line("wallOutflow") = {34}; 
