@@ -5,7 +5,7 @@ lc = DefineNumber[ 0.02, Name "Parameters/lc" ];
 // removing 1.0 from y coordinate for symmetry, since 
 // normalV should be at Y=0.0 and everything else above. 
 // This number makes the average channel diameter equal to 1.
-xMax = 15.0000;
+xMax = 10.0000;
 symY = 1.0;
 Point(1)={0.000000,symY-0,0,lc}; 
 Point(2)={1.725,symY-0,0,lc}; 
