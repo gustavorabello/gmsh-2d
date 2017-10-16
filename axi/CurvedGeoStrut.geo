@@ -1,11 +1,12 @@
 // Gmsh project created on Fri Dec 30 16:33:57 2016
 
-la = DefineNumber[ 0.1, Name "Parameters/la" ]; 
-lc = DefineNumber[ 0.01, Name "Parameters/lc" ]; 
+la = DefineNumber[ 0.05, Name "Parameters/la" ]; 
+lc = DefineNumber[ 0.02, Name "Parameters/lc" ]; 
 
 // removing 1.0 from y coordinate for symmetry, since 
 // normalV should be at Y=0.0 and everything else above. 
 // This number makes the average channel diameter equal to 1.
+xMax = 15.0000;
 symY = 3.0;
 Point(1)={0.000000,symY-2.000000,0,la}; 
 Point(2)={1.850000,symY-2.000000,0,lc}; 
@@ -28,7 +29,7 @@ Point(18)={7.196000,symY-2.140300,0,lc};
 Point(19)={7.468800,symY-2.015500,0,lc}; 
 Point(20)={7.850000,symY-2.000000,0,lc}; 
 Point(21)={8.150000,symY-2.000000,0,lc}; 
-Point(22)={10.000000,symY-2.000000,0,lc}; 
+Point(22)={xMax,symY-2.000000,0,lc}; 
 Point(23)={2.000000,symY-2.000000,0,lc}; 
 Point(24)={2.666700,symY-2.079800,0,lc}; 
 Point(25)={3.333300,symY-2.326800,0,lc}; 
@@ -81,7 +82,7 @@ Circle(29)={40,30,17};
 Circle(30)={41,31,19}; 
 Circle(31)={42,32,21}; 
 Point(43)={0.000000,symY-3.000000,0,la}; 
-Point(44)={10.000000,symY-3.000000,0,la}; 
+Point(44)={xMax,symY-3.000000,0,la}; 
 
 Line(32)={43,44}; 
 Line(33)={43,1}; 

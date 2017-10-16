@@ -1,5 +1,5 @@
 // axisymmetric rising bubble using fixed frame
-l1 = 0.03; // fine
+l1 = 0.05; // fine
 l2 = 0.1;  // coarse
 
 dist = 2.0; // distance between the center and bottom (left) boundary

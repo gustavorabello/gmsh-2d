@@ -1,44 +1,46 @@
 // Gmsh project created on Sat Dec 03 21:08:54 2016
 
-lc = DefineNumber[ 0.1, Name "Parameters/lc" ]; 
+lc = DefineNumber[ 0.02, Name "Parameters/lc" ]; 
 
 // removing 1.0 from y coordinate for symmetry, since 
 // normalV should be at Y=0.0 and everything else above. 
 // This number makes the average channel diameter equal to 1.
+xMax = 15.0000;
+cutX = 1.45;
 symY = 1.0;
 Point(1) = {0.000000, symY-0.000000, 0, lc};
-Point(2) = {3.175000, symY-0.000000, 0, lc};
-Point(3) = {3.300000, symY-0.000000, 0, lc};
-Point(4) = {3.425000, symY-0.000000, 0, lc};
-Point(5) = {3.875000, symY-0.000000, 0, lc};
-Point(6) = {4.000000, symY-0.000000, 0, lc};
-Point(7) = {4.125000, symY-0.000000, 0, lc};
-Point(8) = {4.575000, symY-0.000000, 0, lc};
-Point(9) = {4.700000, symY-0.000000, 0, lc};
-Point(10) = {4.825000, symY-0.000000, 0, lc};
-Point(11) = {5.275000, symY-0.000000, 0, lc};
-Point(12) = {5.400000, symY-0.000000, 0, lc};
-Point(13) = {5.525000, symY-0.000000, 0, lc};
-Point(14) = {5.975000, symY-0.000000, 0, lc};
-Point(15) = {6.100000, symY-0.000000, 0, lc};
-Point(16) = {6.225000, symY-0.000000, 0, lc};
-Point(17) = {6.675000, symY-0.000000, 0, lc};
-Point(18) = {6.800000, symY-0.000000, 0, lc};
-Point(19) = {6.925000, symY-0.000000, 0, lc};
-Point(20) = {7.375000, symY-0.000000, 0, lc};
-Point(21) = {7.500000, symY-0.000000, 0, lc};
-Point(22) = {7.625000, symY-0.000000, 0, lc};
-Point(23) = {8.075000, symY-0.000000, 0, lc};
-Point(24) = {8.200000, symY-0.000000, 0, lc};
-Point(25) = {8.325000, symY-0.000000, 0, lc};
-Point(26) = {8.775000, symY-0.000000, 0, lc};
-Point(27) = {8.900000, symY-0.000000, 0, lc};
-Point(28) = {9.025000, symY-0.000000, 0, lc};
-Point(29) = {9.475000, symY-0.000000, 0, lc};
-Point(30) = {9.600000, symY-0.000000, 0, lc};
-Point(31) = {9.725000, symY-0.000000, 0, lc};
-Point(32) = {12.900000,symY-0.000000, 0, lc};
-Point(33) = {12.900000,symY-1.000000, 0, lc};
+Point(2) = {3.175000-cutX, symY-0.000000, 0, lc};
+Point(3) = {3.300000-cutX, symY-0.000000, 0, lc};
+Point(4) = {3.425000-cutX, symY-0.000000, 0, lc};
+Point(5) = {3.875000-cutX, symY-0.000000, 0, lc};
+Point(6) = {4.000000-cutX, symY-0.000000, 0, lc};
+Point(7) = {4.125000-cutX, symY-0.000000, 0, lc};
+Point(8) = {4.575000-cutX, symY-0.000000, 0, lc};
+Point(9) = {4.700000-cutX, symY-0.000000, 0, lc};
+Point(10) = {4.825000-cutX, symY-0.000000, 0, lc};
+Point(11) = {5.275000-cutX, symY-0.000000, 0, lc};
+Point(12) = {5.400000-cutX, symY-0.000000, 0, lc};
+Point(13) = {5.525000-cutX, symY-0.000000, 0, lc};
+Point(14) = {5.975000-cutX, symY-0.000000, 0, lc};
+Point(15) = {6.100000-cutX, symY-0.000000, 0, lc};
+Point(16) = {6.225000-cutX, symY-0.000000, 0, lc};
+Point(17) = {6.675000-cutX, symY-0.000000, 0, lc};
+Point(18) = {6.800000-cutX, symY-0.000000, 0, lc};
+Point(19) = {6.925000-cutX, symY-0.000000, 0, lc};
+Point(20) = {7.375000-cutX, symY-0.000000, 0, lc};
+Point(21) = {7.500000-cutX, symY-0.000000, 0, lc};
+Point(22) = {7.625000-cutX, symY-0.000000, 0, lc};
+Point(23) = {8.075000-cutX, symY-0.000000, 0, lc};
+Point(24) = {8.200000-cutX, symY-0.000000, 0, lc};
+Point(25) = {8.325000-cutX, symY-0.000000, 0, lc};
+Point(26) = {8.775000-cutX, symY-0.000000, 0, lc};
+Point(27) = {8.900000-cutX, symY-0.000000, 0, lc};
+Point(28) = {9.025000-cutX, symY-0.000000, 0, lc};
+Point(29) = {9.475000-cutX, symY-0.000000, 0, lc};
+Point(30) = {9.600000-cutX, symY-0.000000, 0, lc};
+Point(31) = {9.725000-cutX, symY-0.000000, 0, lc};
+Point(32) = {xMax, symY-0.000000, 0, lc};
+Point(33) = {xMax, symY-1.000000, 0, lc};
 Point(34) = {0.000000, symY-1.000000, 0, lc};
 
 //+
@@ -91,11 +93,12 @@ Line(23) = {33, 34};
 Line(24) = {34, 1};
 
 
-
-//+
-Line Loop(25) = {23, 24, 1, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19, 10, 20, 11, 21, 22};
-//+
-Plane Surface(26) = {25};
+/*--------------------------------------------------
+ * //+
+ * Line Loop(25) = {23, 24, 1, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19, 10, 20, 11, 21, 22};
+ * //+
+ * Plane Surface(26) = {25};
+ * --------------------------------------------------*/
 
 //+
 Physical Line('wallNoSlipConcentration') = {2,3,4,5,6,7,8,9,10,11};
