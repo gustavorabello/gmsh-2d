@@ -18,6 +18,6 @@ Line(r) = {4, 2};
 t = newl;
 Line(t) = {2, 1};
 
-Physical Line('wallNoSlipConstTemp') = {b,t};
+Physical Line('wallNoSlipTempConst') = {b,t};
 Physical Line('wallInflowU') = {l};
 Physical Line('wallOutflow') = {r};
