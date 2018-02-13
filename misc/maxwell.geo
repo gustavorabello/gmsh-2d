@@ -4,7 +4,7 @@
 //r2 = 0.007; 
 r1 = 0.0022; 
 r2 = 0.0032; 
-material = 0.001;
+material = 0.0002;
 wall = 0.1;
 
 // Nondimensional coordinates 
@@ -26,8 +26,8 @@ Line(2) = {3, 4};
 Line(3) = {4, 1};
 Line(4) = {1, 2};
 
-Transfinite Line {1, 3} = 100 Using Progression 1;
-Transfinite Line {4, 2} = 20 Using Progression 1;
+Transfinite Line {1, 3} = 100/(4*wall) Using Progression 1;
+Transfinite Line {4, 2} = 20/(3*wall) Using Progression 1;
 
 Point(5)  = {   xc,    yc, 0, material};
 Point(6)  = {   xc, yc+r1, 0, material};
