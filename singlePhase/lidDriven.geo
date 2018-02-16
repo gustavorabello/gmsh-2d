@@ -18,5 +18,5 @@ Line(r) = {4, 2};
 t = newl;
 Line(t) = {2, 1};
 
-Physical Line('wallNoSlipPressure') = {l,r,b};
-Physical Line('wallInflowU') = {t};
+Physical Line('wallNoSlipPressureBelow') = {l,r,b};
+Physical Line('wallInflowUConcentration') = {t};
