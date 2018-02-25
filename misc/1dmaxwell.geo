@@ -1,7 +1,5 @@
 // Gmsh project created on Thu Jun  4 09:24:57 2009
 
-//r1 = 0.005; 
-//r2 = 0.007; 
 r1 = 0.01; 
 r2 = 0.04; 
 material = 0.001;

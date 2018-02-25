@@ -19,6 +19,6 @@ t = newl;
 Line(t) = {2, 1};
 
 Physical Line('wallNoSlipTempConst') = {t};
-Physical Line('wallSymmetryX') = {b};
+Physical Line('wallNormalV') = {b};
 Physical Line('wallInflowU') = {l};
 Physical Line('wallOutflow') = {r};
