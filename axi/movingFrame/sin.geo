@@ -49,7 +49,6 @@ j = 1+k;
 // top line
 For i In {1:nPoints}
  X = stretch*( (i-1)/(nPoints-1) );
- //Y = D/2.0 + A*Sin(nCycles*2*Pi/stretch*X-phase);
  Y = D/2.0 + A*Sin(wavenum*X-phase);
  Point(j) = {X, Y, 0, wall};
  j = j + 1;

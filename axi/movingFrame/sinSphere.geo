@@ -28,21 +28,21 @@ dist = 1.0*r; // distance from the bubble to the left and right sections
  *      lambda
  * */
 A = 0.07;
-stretch = 10;
+stretch = 4;
 lambda = 4;
 wavenum = 2*Pi/lambda; 
-phase = 0*(2*Pi/180);
+phase = -0.6*(2*Pi); // 0.6 = difference between fixed and moving xc
 nCycles = stretch/lambda;
 nPoints = 40; // total number of points in the sinusoidal line
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 0.15*stretch+(slug+r)*t;
+ xc = 0.75*stretch+(slug+r)*t;
  yc = 0.0;
  zc = 0.0;
 
  // include torus.geo file
- Include '../bubbleShape/sphereAxi.geo';
+ Include '../../bubbleShape/sphereAxi.geo';
 EndFor
 
 k = 10000;
@@ -76,17 +76,19 @@ k = newp;
 Point(k+1) = {0.0, 0.0, 0.0, wall};
 Point(k+2) = {stretch,   0.0, 0.0, wall};
 
-
+// at symmetry axis, the nodes should be connected, since interface is
+// also at the axis. It is not possible to have a straigth line
+// connecting the extreme edges of the domain (k+1 to k+5)
 bl = newl; Line(bl) = { 1, 4 };
 br = newl; Line(br) = { 3, 1 };
-right = newl; Line(right) = { 10043,3 };
-left = newl; Line(left) = {4, 10042};
+right = newl; Line(right) = { 10000+nPoints+3,3 };
+left = newl; Line(left) = {4, 10000+nPoints+2};
 in = newl; Line(in) = {k+1, k-nPoints};
 out = newl; Line(out) = {k+2, k-1};
 
-
-Physical Line('wallNoSlip') = {k-nPoints:k-2:1,in};
-Physical Line('wallOutflow') = { -out };
+Physical Line('wallInflowZeroU') = {-out};
+Physical Line('wallMovingY') = {k-nPoints:k-2:1};
+Physical Line('wallOutflow') = { in };
 Physical Line('wallNormalV') = { left, bl, br, right };  // symmetry bc
 
 j=200*0;
