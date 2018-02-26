@@ -31,13 +31,15 @@ A = 0.07;
 stretch = 4;
 lambda = 4;
 wavenum = 2*Pi/lambda; 
-phase = -0.6*(2*Pi); // 0.6 = difference between fixed and moving xc
+xcf = 0.15*10.0;    // xc of the fixed sinSphere.geo
+xcm = 0.65*stretch; // xc of the moving sinSphere.geo (current)
+phase = wavenum*(xcm-xcf); 
 nCycles = stretch/lambda;
 nPoints = 40; // total number of points in the sinusoidal line
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 0.75*stretch+(slug+r)*t;
+ xc = xcm + (slug+r)*t;
  yc = 0.0;
  zc = 0.0;
 
