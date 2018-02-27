@@ -33,7 +33,7 @@ lambda = 4;
 wavenum = 2*Pi/lambda; 
 phase = 0*(2*Pi/180);
 nCycles = stretch/lambda;
-nPoints = 40; // total number of points in the sinusoidal line
+nPoints = 40+1; // total number of points in the sinusoidal line
 
 For t In {0:nb-1}
  // bubble's coordinates
@@ -53,7 +53,10 @@ For i In {1:nPoints}
  Y = D/2.0 + A*Sin(wavenum*X-phase);
  Point(j) = {X, Y, 0, wall};
  j = j + 1;
+ Printf("X: %f, Y: %f",X,Y);
 EndFor
+Printf("xc: %f, y: %f",xc,D/2.0 + A*Sin(wavenum*xc-phase));
+
 
 j = 1+k;
 // lines
@@ -79,8 +82,8 @@ Point(k+2) = {stretch,   0.0, 0.0, wall};
 
 bl = newl; Line(bl) = { 1, 4 };
 br = newl; Line(br) = { 3, 1 };
-right = newl; Line(right) = { 10043,3 };
-left = newl; Line(left) = {4, 10042};
+right = newl; Line(right) = { 10000+nPoints+3,3 };
+left = newl; Line(left) = {4, 10000+nPoints+2};
 in = newl; Line(in) = {k+1, k-nPoints};
 out = newl; Line(out) = {k+2, k-1};
 

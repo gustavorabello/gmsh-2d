@@ -28,14 +28,20 @@ dist = 1.0*r; // distance from the bubble to the left and right sections
  *      lambda
  * */
 A = 0.07;
-stretch = 4;
+stretch = 5;
 lambda = 4;
 wavenum = 2*Pi/lambda; 
-xcf = 0.15*10.0;    // xc of the fixed sinSphere.geo
+stfixed = 10.0;     // stretch of the fixed sinSphere.geo
+xcf = 0.15*stfixed; // xc of the fixed sinSphere.geo
 xcm = 0.65*stretch; // xc of the moving sinSphere.geo (current)
 phase = wavenum*(xcm-xcf); 
 nCycles = stretch/lambda;
-nPoints = 40; // total number of points in the sinusoidal line
+nPoints = (40.0/stfixed)*stretch+1; // total number of points in sinusoidal line
+Printf("nPoints: ",nPoints);
+Printf("----------- Shoud be included in femSIM2d ----------");
+Printf("-------------- Simulator2D:setALEBC() --------------");
+Printf("  phase: %f",phase);
+Printf("----------------------------------------------------");
 
 For t In {0:nb-1}
  // bubble's coordinates
@@ -55,7 +61,9 @@ For i In {1:nPoints}
  Y = D/2.0 + A*Sin(wavenum*X-phase);
  Point(j) = {X, Y, 0, wall};
  j = j + 1;
+ Printf("X: %f, Y: %f",X,Y);
 EndFor
+Printf("xc: %f, y: %f",xc,D/2.0 + A*Sin(wavenum*xc-phase));
 
 j = 1+k;
 // lines
