@@ -83,7 +83,7 @@ k = k + nPoints;
 Point(k+1) = {0.0, 0.0, 0.0, wall};
 Point(k+2) = {stretch, 0.0, 0.0, wall};
 
-left = newl; Line(left) = { 1, k+1 };
+left = newl; Line(left) = { 6, k+1 };
 bl = newl; Line(bl) = { 6, 4 };
 bc = newl; Line(bc) = { 4, 1 };
 br = newl; Line(br) = { 1, 3 };
@@ -100,10 +100,9 @@ Physical Line('wallNormalV') = {left,-bl,-bc,-br,-right};
 
 j=200*0;
 For t In {1:nb}
-Physical Line(Sprintf("bubble%g",t)) = {j+6, j+2, j+1, j+5, j+4, j+3};
+Physical Line(Sprintf("bubble%g",t)) = {j+2, j+1,j+3};
  j=200*t;
 EndFor
-
 /*--------------------------------------------------
  * Printf("k+1: %f",k+1);
  * Printf("k+2: %f",k+2);
