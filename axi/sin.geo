@@ -27,18 +27,17 @@ dist = 0.5*r; // distance from the bubble to the left and right sections
  * k = -------- --> wave number
  *      lambda
  * */
-A = 0.05;
-stretch=8;
-phase = 0;
-nCycles = 2;
-lambda = stretch/nCycles;
+A = 0.07;
+stretch = 10;
+lambda = 4;
 wavenum = 2*Pi/lambda; 
-nPoints = 40; // total number of points in the sinusoidal line
-nTheta = 4; // number of rotations
+phase = 0*(2*Pi/180);
+nCycles = stretch/lambda;
+nPoints = 40+1; // total number of points in the sinusoidal line
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = (ll+dist)+(slug+body+r+r/2.0)*t;
+ xc = 0.15*stretch+(slug+r)*t;
  yc = 0.0;
  zc = 0.0;
 
@@ -54,7 +53,10 @@ For i In {1:nPoints}
  Y = D/2.0 + A*Sin(wavenum*X-phase);
  Point(j) = {X, Y, 0, wall};
  j = j + 1;
+ Printf("X: %f, Y: %f",X,Y);
 EndFor
+Printf("xc: %f, y: %f",xc,D/2.0 + A*Sin(wavenum*xc-phase));
+
 
 j = 1+k;
 // lines
@@ -87,8 +89,9 @@ Extrude {stretch-(ll+body+2*r+r/2.0+dist), 0, 0} {
 bc = newl; Line(bc) = { 1, 4 };
 br = newl; Line(br) = { 3, 1 };
 bl = newl; Line(bl) = { 4, 6 };
-left = newl; Line(left) = { 3, k+3 };
-right = newl; Line(right) = {3, k+1};
+left = newl; Line(left) = { 6, k+1 };
+right = newl; Line(right) = {3, k+3};
+rightr = newl; Line(rightr) = {k+3, k+4};
 
 in = newl; Line(in) = {k+1, k-nPoints};
 out = newl; Line(out) = {k+4, k-1};
@@ -96,8 +99,8 @@ out = newl; Line(out) = {k+4, k-1};
 
 //Physical Line('wallNoSlip') = {k-nPoints:k+(nPoints-2):1,in};
 Physical Line('wallNoSlip') = {k-nPoints:k-2:1,in};
-Physical Line('wallOutflow') = { -out };
-Physical Line('wallNormalV') = { -4, -6, bc, br, bl, left, right, -k };  // symmetry bc
+Physical Line('wallOutflow') = {-out };
+Physical Line('wallNormalV') = {-left,bl,bc, br, -right,-rightr};// symmetry bc
 
 j=200*0;
 For t In {1:nb}
