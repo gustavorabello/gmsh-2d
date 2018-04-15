@@ -32,12 +32,20 @@ stretch = 10;
 lambda = 4;
 wavenum = 2*Pi/lambda; 
 phase = 0*(2*Pi/180);
+xcf = 0.15*stretch;
 nCycles = stretch/lambda;
 nPoints = 40+1; // total number of points in the sinusoidal line
+Printf("nPoints: ",nPoints);
+Printf("-------------- Simulator2D:setALEBC() --------------");
+Printf("  phase: %f",phase);
+Printf("  Y: %f",D/2.0 + A*Sin(wavenum*xcf-phase));
+Printf("  wavelength: %f",lambda);
+Printf("----------------------------------------------------");
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 0.15*stretch+(slug+r)*t;
+ xc = xcf + (slug+r)*t;
+ //xc = 0.15*stretch + r/2.0+1.5*D +(slug+r)*t;
  yc = 0.0;
  zc = 0.0;
 

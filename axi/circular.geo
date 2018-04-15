@@ -11,7 +11,7 @@ slug = 0.7*r;
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 0.0+(slug+body+r+r/2.0)*t;
+ xc = 1.8+(slug+body+r+r/2.0)*t;
  yc = 0.0;
  zc = 0.0;
 
