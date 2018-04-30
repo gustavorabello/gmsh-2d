@@ -6,12 +6,12 @@ nb = 1;
  
 D = 1.0; 
 r = 0.35*D; 
-body = 1.5*D; 
+body = 4.0*D; 
 slug = 0.7*r; 
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 1.8+(slug+body+r+r/2.0)*t;
+ xc = 4.2+(slug+body+r+r/2.0)*t;
  yc = 0.0;
  zc = 0.0;
 
@@ -19,10 +19,10 @@ For t In {0:nb-1}
  Include '../../bubbleShape/taylorAxi.geo';
 EndFor
 
-ll = 3.0*D; // length of the left section
-lr = 1.5*D; // length of the right section
+ll = 8.0*D; // length of the left section
+lr = 2.0*D; // length of the right section
 
-dist = 0.5*r; // distance from the bubble to the left and right sections
+dist = 1.5*r; // distance from the bubble to the left and right sections
 
 k = newp;
 /*  k+2              k+4                 k+6               k+8
