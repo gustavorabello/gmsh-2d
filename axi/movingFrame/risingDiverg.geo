@@ -163,7 +163,7 @@ out  = newl; Line(out) = {k+4,k+5};
 // Defining boundary conditions:
 Physical Line('wallOutflow') = { in };
 Physical Line('wallInflowZeroU') = { out };
-Physical Line('wallMovingY') = { w1, w2 };
+Physical Line('wallMovingYDiverg') = { w1, w2 };
 Physical Line('wallNormalV') = { sym1,sym2,sym3,sym4,sym5 };  // symmetry bc
 Physical Line(Sprintf("bubble%g",1)) = {1, 2, 3};
 

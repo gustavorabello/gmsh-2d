@@ -1,17 +1,19 @@
 // axisymmetric bubble in microchannel
 
-wall = 0.06; 
-b1 = 0.05; 
+wall = 0.045; 
+b1 = 0.03; 
 nb = 1; 
  
 D = 1.0; 
+//r = 0.38*D; 
 r = 0.35*D; 
+//body = 2.5*D; 
 body = 1.5*D; 
 slug = 0.7*r; 
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 1.8+(slug+body+r+r/2.0)*t;
+ xc = 2.8+(slug+body+r+r/2.0)*t;
  yc = 0.0;
  zc = 0.0;
 
@@ -19,6 +21,7 @@ For t In {0:nb-1}
  Include '../../bubbleShape/taylorAxi.geo';
 EndFor
 
+//ll = 4.0*D; // length of the left section
 ll = 3.0*D; // length of the left section
 lr = 1.5*D; // length of the right section
 
