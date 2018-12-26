@@ -2,10 +2,10 @@
 l1 = 0.03; // fine
 l2 = 0.05;  // coarse
 
-dist = 8.0; // distance between the center and bottom (left) boundary
+dist = 2.0; // distance between the center and bottom (left) boundary
 twoD = 0.0;
 D = 10.0;
-l = 12;
+l = 20;
 
 /* Defining bubble shape (circle with diameter 1, cetered at origin): */
 Point(1) = {  0.0, twoD, 0.0, l1}; // center
@@ -37,8 +37,8 @@ in = newl; Line(in) = {k+1, k+2};
 out = newl; Line(out) = {k+3, k+4};
 
 /* Boundary conditions: */
-Physical Line('wallInflowZeroU') = { top, out};
-Physical Line('wallOutflow') = { in };
+Physical Line('wallNoSlip') = { top, in };
+Physical Line('wallOutflow') = { out };
 Physical Line('wallNormalV') = { bl, br, left, right };  // symmetry bc
 Physical Line(Sprintf("bubble%g",1)) = {1, 2};
 //+
