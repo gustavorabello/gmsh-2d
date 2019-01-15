@@ -5,15 +5,15 @@ b1 = 0.03;
 nb = 1; 
  
 D = 1.0; 
-//r = 0.38*D; 
-r = 0.35*D; 
+r = 0.4*D; 
+//r = 0.35*D; 
 //body = 2.5*D; 
 body = 1.5*D; 
 slug = 0.7*r; 
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 2.8+(slug+body+r+r/2.0)*t;
+ xc = 1.8+(slug+body+r+r/2.0)*t;
  yc = 0.0;
  zc = 0.0;
 

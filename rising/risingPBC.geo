@@ -30,12 +30,13 @@ Line(k+6) = {k+8, k+7};
 Line(k+7) = {k+7, k+6};
 Line(k+8) = {k+6, k+9};
 
-Periodic Line {k+6} = {k+8};
-Physical Line('wallNoSlip') = {k+5, k+7};
-Physical Line('wallRight') = {k+6};
-Physical Line('wallLeft') = {k+8};
+//Periodic Line {k+6} = {k+8};
+//Physical Line('wallNoSlip') = {k+5, k+7};
+//Physical Line('wallRight') = {k+6};
+//Physical Line('wallLeft') = {k+8};
 
-//Physical Line('wallNoSlip') = {k+6, k+7, k+8, k+5};
+Physical Line('wallNoSlip') = {k+5, k+7, k+8};
+Physical Line('wallOutflow') = {k+6};
 
 j=200*0;
 For t In {1:nb}

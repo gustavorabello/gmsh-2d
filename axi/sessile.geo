@@ -1,7 +1,7 @@
 // sphere for axisymmetric static or oscillating drop simulation
 
-b1 = 0.02; // fine
-wall = 0.08; // coarse
+b1 = 0.03; // fine
+wall = 0.06; // coarse
 A = 0.0; // circle perturbation
 
 l = 5.0; // length of the domain

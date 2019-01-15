@@ -7,7 +7,7 @@ wall = 0.04;
 D = 1.0;
 r = 0.5*D;
 slug = 1.5*D;
-body = 1.5*D;
+body = 3.5*D;
 
 /* sinusoidal wall configuration
  *
@@ -24,18 +24,19 @@ body = 1.5*D;
  * k = -------- --> wave number
  *      lambda
  * */
-A = 0.004;
-stretch = 8;
-stfixed = 10.0;     // stretch of the fixed sinSphere.geo
-xcf = 0.15*stfixed; // xc of the fixed sin.geo
-xcm = 0.70*stretch; // xc of the moving sin.geo (current)
-phase = 12.0; 
+A = 0.05;
+Dthroat = 1.0;
+stretch = 15;
+stfixed = 20.0;
+xcm = -stretch/2.0 + 0.7*stretch; // xc of the moving sinSphere.geo (current)
+phase = 10.0; 
 nPoints = (40.0/stfixed)*stretch+1; // total number of points in sinusoidal line
 Printf("nPoints: ",nPoints);
 Printf("----------- Shoud be included in femSIM2d ----------");
 Printf("-------------- Simulator2D:setALEBC() --------------");
+Printf("  A: %f",A);
 Printf("  phase: %f",phase);
-Printf("  Y: %f",D/2.0 + A*(phase)*(phase));
+Printf("  Y: %f",Dthroat/2.0 + A*(phase)*(phase));
 Printf("----------------------------------------------------");
 
 For t In {0:nb-1}
@@ -53,13 +54,13 @@ k = 10000;
 j = 1+k;
 // top line
 For i In {1:nPoints}
- X = stretch*( (i-1)/(nPoints-1) );
- Y = D/2.0 + A*(X-phase)*(X-phase);
+ X = stretch*( (i-1)/(nPoints-1) )-stretch/2.0;
+ Y = Dthroat/2.0 + A*(X-phase)*(X-phase);
  Point(j) = {X, Y, 0, wall};
  j = j + 1;
  Printf("X: %f, Y: %f",X,Y);
 EndFor
-Printf("xc: %f, y: %f",xc,D/2.0 + A*(X-phase)*(X-phase));
+Printf("xc: %f, y: %f",xc,Dthroat/2.0 + A*(X-phase)*(X-phase));
 
 j = 1+k;
 // lines
@@ -77,8 +78,8 @@ EndFor
  */
 
 k = k + nPoints;
-Point(k+1) = {0.0, 0.0, 0.0, wall};
-Point(k+2) = {stretch, 0.0, 0.0, wall};
+Point(k+1) = {-stretch/2.0, 0.0, 0.0, wall};
+Point(k+2) = { stretch/2.0, 0.0, 0.0, wall};
 
 left = newl; Line(left) = { 6, k+1 };
 bl = newl; Line(bl) = { 6, 4 };
@@ -92,7 +93,7 @@ in = newl;Line(in) = {k+2, k+0};
 
 Physical Line('wallInflowZeroU') = {-in};
 Physical Line('wallOutflow') = {out};
-Physical Line('wallMovingY') = {k-nPoints+1:k-1:1};
+Physical Line('wallMovingYNozzle') = {k-nPoints+1:k-1:1};
 Physical Line('wallNormalV') = {left,-bl,-bc,-br,-right};
 
 j=200*0;
