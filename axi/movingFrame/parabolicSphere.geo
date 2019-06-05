@@ -1,11 +1,12 @@
 // Gmsh project created on Thu Jun  4 09:24:57 2009
 
 nb = 1;
-b1 = 0.04;
-wall = 0.04;
+b1 = 0.08;
+wall = 0.2;
 
-D = 1.0;
-r = 0.3*D;
+// bubble geometry
+D = 2.0;
+r = 0.5*D;
 slug = 1.5*D;
 pert = (0.0/100.0)*r;
 
@@ -27,23 +28,20 @@ dist = 1.0*r; // distance from the bubble to the left and right sections
  * k = -------- --> wave number
  *      lambda
  * */
-A = 0.07;
-stretch = 5;
-lambda = 4;
-wavenum = 2*Pi/lambda; 
-stfixed = 10.0;     // stretch of the fixed sinSphere.geo
+A = 0.05;
+Dthroat = 1.0;
+stretch = 15;
+stfixed = 20.0;     // stretch of the fixed sinSphere.geo
 xcf = 0.15*stfixed; // xc of the fixed sinSphere.geo
-xcm = 0.70*stretch; // xc of the moving sinSphere.geo (current)
-phase = wavenum*(xcm-xcf); 
-nCycles = stretch/lambda;
+xcm = -stretch/2.0 + 0.6*stretch; // xc of the moving sinSphere.geo (current)
+phase = 10.0;
 nPoints = (40.0/stfixed)*stretch+1; // total number of points in sinusoidal line
 Printf("nPoints: ",nPoints);
 Printf("----------- Shoud be included in femSIM2d ----------");
 Printf("-------------- Simulator2D:setALEBC() --------------");
 Printf("  A: %f",A);
 Printf("  phase: %f",phase);
-Printf("  Y: %f",D/2.0 + A*Sin(wavenum*xcm-phase));
-Printf("  wavelength: %f",lambda);
+Printf("  Y: %f",Dthroat/2.0 + A*(phase)*(phase));
 Printf("----------------------------------------------------");
 
 For t In {0:nb-1}
@@ -61,13 +59,13 @@ k = 10000;
 j = 1+k;
 // top line
 For i In {1:nPoints}
- X = stretch*( (i-1)/(nPoints-1) );
- Y = D/2.0 + A*Sin(wavenum*X-phase);
+ X = stretch*( (i-1)/(nPoints-1) )-stretch/2.0;
+ Y = Dthroat/2.0 + A*(X-phase)*(X-phase);
  Point(j) = {X, Y, 0, wall};
  j = j + 1;
  Printf("X: %f, Y: %f",X,Y);
 EndFor
-Printf("xc: %f, y: %f",xc,D/2.0 + A*Sin(wavenum*xc-phase));
+Printf("xc: %f, y: %f",xc,Dthroat/2.0 + A*(X-phase)*(X-phase));
 
 j = 1+k;
 // lines
@@ -87,8 +85,8 @@ k = newp;
  *    |<----------------------------------------------------->|
  */
 
-Point(k+1) = {0.0, 0.0, 0.0, wall};
-Point(k+2) = {stretch,   0.0, 0.0, wall};
+Point(k+1) = {-stretch/2.0, 0.0, 0.0, wall};
+Point(k+2) = { stretch/2.0, 0.0, 0.0, wall};
 
 // at symmetry axis, the nodes should be connected, since interface is
 // also at the axis. It is not possible to have a straigth line
@@ -101,7 +99,7 @@ in = newl; Line(in) = {k+1, k-nPoints};
 out = newl; Line(out) = {k+2, k-1};
 
 Physical Line('wallInflowZeroU') = {-out};
-Physical Line('wallMovingY') = {k-nPoints:k-2:1};
+Physical Line('wallMovingYNozzle') = {k-nPoints:k-2:1};
 Physical Line('wallOutflow') = { in };
 Physical Line('wallNormalV') = { left, bl, br, right };  // symmetry bc
 

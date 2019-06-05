@@ -1,8 +1,8 @@
 // Gmsh project created on Thu Jun  4 09:24:57 2009
 
 nb = 1;
-b1 = 0.08;
-wall = 0.2;
+b1 = 0.06;
+wall = 0.06;
 
 // bubble geometry
 D = 2.0;
@@ -28,26 +28,25 @@ dist = 1.0*r; // distance from the bubble to the left and right sections
  * k = -------- --> wave number
  *      lambda
  * */
-A = 0.05;
-Dthroat = 1.0;
-stretch = 15;
-stfixed = 20.0;     // stretch of the fixed sinSphere.geo
-xcf = 0.15*stfixed; // xc of the fixed sinSphere.geo
-xcm = -stretch/2.0 + 0.6*stretch; // xc of the moving sinSphere.geo (current)
-phase = 10.0;
-nPoints = (40.0/stfixed)*stretch+1; // total number of points in sinusoidal line
+A = 0.004;
+stretch = 20;
+phase = 0.0;
+Xth = 5.0; // X position of throat
+Xi  = -20.0; // X inicial
+xcf = 0.30*(Xi); // bubble center position
+nPoints = 40+1; // total number of points in the sinusoidal line
 Printf("nPoints: ",nPoints);
 Printf("----------- Shoud be included in femSIM2d ----------");
 Printf("-------------- Simulator2D:setALEBC() --------------");
 Printf("  A: %f",A);
 Printf("  phase: %f",phase);
-Printf("  Y: %f",Dthroat/2.0 + A*(phase)*(phase));
+Printf("  Y: %f",D/2.0 + A*(phase)*(phase));
 Printf("----------------------------------------------------");
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = xcm + (slug+r)*t;
- //xc = xcm + r/2.0+1.5*D + (slug+r)*t;
+ xc = xcf + (slug+r)*t;
+ //xc = 0.15*stretch + r/2.0+1.5*D +(slug+r)*t;
  yc = 0.0;
  zc = 0.0;
 
@@ -59,13 +58,28 @@ k = 10000;
 j = 1+k;
 // top line
 For i In {1:nPoints}
- X = stretch*( (i-1)/(nPoints-1) )-stretch/2.0;
- Y = Dthroat/2.0 + A*(X-phase)*(X-phase);
+ X = Xi + stretch*( (i-1)/(nPoints-1) );
+ If( X < 0.0 )
+  Y = 2.0; 
+ EndIf
+ If( X <= Xth && X >= 0.0)
+  //Y = D/2.0 + A*(X-phase)*(X-phase);
+  Y = 2.0 + 3.0*(((X-phase)/Xth) - 1.5)*((X-phase)/Xth)*((X-phase)/Xth);
+ EndIf
+ If( X > Xth && X <= 10.0)
+  //Y = D/2.0 + A*(X-phase)*(X-phase);
+  Y = 3.0 - (X/Xth)*(6.0-4.5*(X/Xth)+(X/Xth)*(X/Xth));
+ EndIf
+ If( X > 10.0 )
+  Y = 1.0; 
+ EndIf
+ 
  Point(j) = {X, Y, 0, wall};
  j = j + 1;
  Printf("X: %f, Y: %f",X,Y);
 EndFor
-Printf("xc: %f, y: %f",xc,Dthroat/2.0 + A*(X-phase)*(X-phase));
+Printf("xc: %f, y: %f",xc,D/2.0 + A*(X-phase)*(X-phase));
+
 
 j = 1+k;
 // lines
@@ -85,8 +99,9 @@ k = newp;
  *    |<----------------------------------------------------->|
  */
 
-Point(k+1) = {-stretch/2.0, 0.0, 0.0, wall};
-Point(k+2) = { stretch/2.0, 0.0, 0.0, wall};
+Point(k+1) = {Xi + 0.0, 0.0, 0.0, wall};
+Point(k+2) = {Xi + stretch,   0.0, 0.0, wall};
+
 
 // at symmetry axis, the nodes should be connected, since interface is
 // also at the axis. It is not possible to have a straigth line

@@ -4,7 +4,7 @@ nb = 1;
 b1 = 0.04;
 wall = 0.04;
 
-D = 1.0;
+D = 3.0;
 r = 0.3*D;
 slug = 1.5*D;
 pert = (0.0/100.0)*r;
@@ -28,9 +28,11 @@ dist = 1.0*r; // distance from the bubble to the left and right sections
  *      lambda
  * */
 A = 0.004;
-stretch = 10;
-phase = 3.0;
-xcf = 0.25*stretch;
+stretch = 30;
+phase = 0.0;
+Xth = 5.0; // X position of throat
+Xi  = -10.0; // X inicial
+xcf = 0.70*(Xi); // bubble center position
 nPoints = 40+1; // total number of points in the sinusoidal line
 Printf("nPoints: ",nPoints);
 Printf("-------------- Simulator2D:setALEBC() --------------");
@@ -53,8 +55,22 @@ k = 10000;
 j = 1+k;
 // top line
 For i In {1:nPoints}
- X = stretch*( (i-1)/(nPoints-1) );
- Y = D/2.0 + A*(X-phase)*(X-phase);
+ X = Xi + stretch*( (i-1)/(nPoints-1) );
+ If( X < 0.0 )
+  Y = 2.0; 
+ EndIf
+ If( X <= Xth && X >= 0.0)
+  //Y = D/2.0 + A*(X-phase)*(X-phase);
+  Y = 2.0 + 3.0*(((X-phase)/Xth) - 1.5)*((X-phase)/Xth)*((X-phase)/Xth);
+ EndIf
+ If( X > Xth && X <= 10.0)
+  //Y = D/2.0 + A*(X-phase)*(X-phase);
+  Y = 3.0 - (X/Xth)*(6.0-4.5*(X/Xth)+(X/Xth)*(X/Xth));
+ EndIf
+ If( X > 10.0 )
+  Y = 1.0; 
+ EndIf
+ 
  Point(j) = {X, Y, 0, wall};
  j = j + 1;
  Printf("X: %f, Y: %f",X,Y);
@@ -80,8 +96,8 @@ k = newp;
  *    |<----------------------------------------------------->|
  */
 
-Point(k+1) = {0.0, 0.0, 0.0, wall};
-Point(k+2) = {stretch,   0.0, 0.0, wall};
+Point(k+1) = {Xi + 0.0, 0.0, 0.0, wall};
+Point(k+2) = {Xi + stretch,   0.0, 0.0, wall};
 
 
 bl = newl; Line(bl) = { 1, 4 };
