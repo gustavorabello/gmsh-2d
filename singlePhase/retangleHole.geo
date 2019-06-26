@@ -19,7 +19,7 @@ L = 1.0;
  * */
 
 xCenter=8*L/2.0;
-yCenter=L;
+yCenter=1*L;
 radius=0.5;
 pert=(0.0/100)*radius;
 Point(1) = {xCenter, yCenter,             0,hole}; // center
