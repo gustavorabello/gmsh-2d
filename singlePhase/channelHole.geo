@@ -47,5 +47,6 @@ Line(8) = {6, 9};
 Physical Line('wallNormalV') = {5,7};
 Physical Line('wallInflowU') = {8};
 Physical Line('wallOutflow') = {6};
-Physical Line('hole1') = {3, 2, 1, 4};
+Physical Line('wallHole1') = {3, 2, 1, 4}; // moving hole
+//Physical Line('wallNoSlip') = {3, 2, 1, 4}; // static hole
 
