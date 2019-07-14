@@ -9,11 +9,11 @@ r = 0.7*D;
 slug = 1.5*D;
 body = 3.5*D;
 
-stretch = 30+nb*10;
+stretch = 30+(nb-1)*12;
 phase = 0.0; 
 Xth = 5.0; // X position of throat
-Xi  = -32.0-(nb-b1)*13; // X inicial
-xcf = 0.30*(Xi); // bubble center position
+Xi  = -30.0-(nb-1)*12; // X inicial
+xcf = -8.0; // bubble center position
 nPoints = (40.0)+1; // total number of points in sinusoidal line
 Printf("nPoints: ",nPoints);
 Printf("----------- Shoud be included in femSIM2d ----------");

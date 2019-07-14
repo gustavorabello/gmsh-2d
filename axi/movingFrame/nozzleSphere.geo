@@ -13,11 +13,11 @@ pert = (0.0/100.0)*r;
 ll = 1.5*D; // length of the left section
 dist = 1.0*r; // distance from the bubble to the left and right sections
 
-stretch = 15+nb*5;
+stretch = 15+(nb-1)*5;
 phase = 0.0;
 Xth = 5.0; // X position of throat
-Xi  = -15.0-(nb-b1)*10; // X inicial
-xcf = 0.45*(Xi); // bubble center position
+Xi  = -15.0-(nb-1)*5; // X inicial
+xcf = -5.5; // bubble center position
 nPoints = 40+1; // total number of points in the sinusoidal line
 Printf("nPoints: ",nPoints);
 Printf("----------- Shoud be included in femSIM2d ----------");
