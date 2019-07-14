@@ -5,47 +5,30 @@ b1 = 0.06;
 wall = 0.06;
 
 // bubble geometry
-D = 2.0;
+D = 2.5;
 r = 0.5*D;
-slug = 1.5*D;
+slug = 1.0*D;
 pert = (0.0/100.0)*r;
 
 ll = 1.5*D; // length of the left section
 dist = 1.0*r; // distance from the bubble to the left and right sections
 
-/* sinusoidal wall configuration
- *
- *                      2*pi
- * Eq.: y(x) = A sin( -------- * X - phase)
- *                     lambda
- *
- * A = amplitude
- * lambda = wavelength (channel length / number of corrugations )
- * X = x coordinate
- * phase = phase displacement
- *
- *       2*pi
- * k = -------- --> wave number
- *      lambda
- * */
-A = 0.004;
-stretch = 20;
+stretch = 15+nb*5;
 phase = 0.0;
 Xth = 5.0; // X position of throat
-Xi  = -20.0; // X inicial
-xcf = 0.30*(Xi); // bubble center position
+Xi  = -15.0-(nb-b1)*10; // X inicial
+xcf = 0.45*(Xi); // bubble center position
 nPoints = 40+1; // total number of points in the sinusoidal line
 Printf("nPoints: ",nPoints);
 Printf("----------- Shoud be included in femSIM2d ----------");
 Printf("-------------- Simulator2D:setALEBC() --------------");
-Printf("  A: %f",A);
-Printf("  phase: %f",phase);
-Printf("  Y: %f",D/2.0 + A*(phase)*(phase));
+Printf("  No need to take any further action ---------------");
+Printf("  No need to take any further action ---------------");
 Printf("----------------------------------------------------");
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = xcf + (slug+r)*t;
+ xc = xcf - (slug+2*r)*t;
  //xc = 0.15*stretch + r/2.0+1.5*D +(slug+r)*t;
  yc = 0.0;
  zc = 0.0;
@@ -63,12 +46,14 @@ For i In {1:nPoints}
   Y = 2.0; 
  EndIf
  If( X <= Xth && X >= 0.0)
-  //Y = D/2.0 + A*(X-phase)*(X-phase);
-  Y = 2.0 + 3.0*(((X-phase)/Xth) - 1.5)*((X-phase)/Xth)*((X-phase)/Xth);
+  //Y = 2.0 + 3.0*(((X-phase)/Xth) - 1.5)*((X-phase)/Xth)*((X-phase)/Xth);
+  Y = 2.0 + 2.5*(((X-phase)/Xth) - 1.5)*((X-phase)/Xth)*((X-phase)/Xth);
+  //Y = 2.0 + 2.0*(((X-phase)/Xth) - 1.5)*((X-phase)/Xth)*((X-phase)/Xth);
  EndIf
  If( X > Xth && X <= 10.0)
-  //Y = D/2.0 + A*(X-phase)*(X-phase);
-  Y = 3.0 - (X/Xth)*(6.0-4.5*(X/Xth)+(X/Xth)*(X/Xth));
+  //Y = 3.00 - (X/Xth)*(6.0-4.5*(X/Xth)+(X/Xth)*(X/Xth));
+  Y = 3.25 - (X/Xth)*(6.0-4.5*(X/Xth)+(X/Xth)*(X/Xth));
+  //Y = 3.50 - (X/Xth)*(6.0-4.5*(X/Xth)+(X/Xth)*(X/Xth));
  EndIf
  If( X > 10.0 )
   Y = 1.0; 
@@ -78,7 +63,6 @@ For i In {1:nPoints}
  j = j + 1;
  Printf("X: %f, Y: %f",X,Y);
 EndFor
-Printf("xc: %f, y: %f",xc,D/2.0 + A*(X-phase)*(X-phase));
 
 
 j = 1+k;
@@ -106,17 +90,31 @@ Point(k+2) = {Xi + stretch,   0.0, 0.0, wall};
 // at symmetry axis, the nodes should be connected, since interface is
 // also at the axis. It is not possible to have a straigth line
 // connecting the extreme edges of the domain (k+1 to k+5)
-bl = newl; Line(bl) = { 1, 4 };
-br = newl; Line(br) = { 3, 1 };
+j=100*0;
+For t In {1:nb}
+ bl = newl; Line(bl) = { j+1, j+4 };
+ br = newl; Line(br) = { j+3, j+1 };
+
+ j=100*t;
+EndFor
+
 right = newl; Line(right) = { 10000+nPoints+3,3 };
-left = newl; Line(left) = {4, 10000+nPoints+2};
+j=100*0;
+For t In {1:nb-1}
+ mid = newl; Line(mid) = {4+j, 103+j};
+
+ j=100*t;
+EndFor
+left = newl; Line(left) = {4+j, 10000+nPoints+2};
+
 in = newl; Line(in) = {k+1, k-nPoints};
 out = newl; Line(out) = {k+2, k-1};
 
 Physical Line('wallInflowZeroU') = {-out};
 Physical Line('wallMovingYNozzle') = {k-nPoints:k-2:1};
 Physical Line('wallOutflow') = { in };
-Physical Line('wallNormalV') = { left, bl, br, right };  // symmetry bc
+Physical Line('wallNormalV') = {10041:10044+(nb-1)*3:1};
+
 
 j=200*0;
 For t In {1:nb}
