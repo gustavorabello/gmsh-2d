@@ -1,8 +1,8 @@
 // Gmsh project created on Thu Jun  4 09:24:57 2009
 
 nb = 1;
-b1 = 0.06;
-wall = 0.06;
+b1 = 0.08;
+wall = 0.08;
 
 D = 2.0;
 r = 0.7*D;
