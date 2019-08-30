@@ -1,24 +1,23 @@
 // axisymmetric bubble in divergent channel
 wall = 0.06; 
-b1 = 0.03; 
+b1 = 0.06; 
 nb = 1; 
  
 D = 1.0; 
 
 // solution
-//Case = 1; // DW or DW50
+Case = 1; // DW or DW50
 //Case = 2; // SO
 //Case = 3; // HDMSO
-Case = 4; // moving
 
 // bubble shape
-BubbleShape = 1; // straight bubble
-//BubbleShape = 2; // inclined bubble
+//BubbleShape = 1; // straight bubble
+BubbleShape = 2; // inclined bubble
 
 //non-dimensional sections
-L1 = 25*D; 
+L1 = 7*D; 
 //L2 = 128.87*D; 
-L2 = 3*D; 
+L2 = 20*D; 
 
 // Degassed water and DW50
 If( Case == 1 )
@@ -37,10 +36,10 @@ If( Case == 2 )
  Printf("Silicon oil");
  Printf("Target Volume: 2.65E-8 < v < 5.89E-8");
  //r = 0.541*D; V = 2.65e-8; // volume [m^3]
- r = 0.35*D; 
+ r = 0.6*D; 
  //X = 3.075;Li = 26.142e-03;
  //X = 2.1957;Li = 29.759e-03;
- X = 4.0*D;Li = 45.2645e-03;
+ X = 2.83023;Li = 42.2645e-03;
  //X = 3.72;Li = 25.4005e-03;
  //X = 3.60;Li = 27.89e-03;
 EndIf
@@ -54,15 +53,6 @@ If( Case == 3 )
  //X = 3.965; Li = 35.1155e-03;
  //X = 2.94;  Li = 41.6655e-03;
  X = 6.871; Li = 22.1135e-03;
-EndIf
-
-// moving frame
-If( Case == 4 )
- Printf("Moving Frme");
- Printf("Target Volume: 2.65E-8 < v < 5.89E-8");
- r = 0.35*D; 
- X = 4.0*D;Li = 45.2645e-03;
- BubbleShape = 1; // straight bubble
 EndIf
 
 /* bubble width  = r;
@@ -173,7 +163,7 @@ out  = newl; Line(out) = {k+4,k+5};
 // Defining boundary conditions:
 Physical Line('wallOutflow') = { in };
 Physical Line('wallInflowZeroU') = { out };
-Physical Line('wallMovingYDiverg') = { w1, w2 };
+Physical Line('wallMovingYDiverg') = { w1, w2};
 Physical Line('wallNormalV') = { sym1,sym2,sym3,sym4,sym5 };  // symmetry bc
 Physical Line(Sprintf("bubble%g",1)) = {1, 2, 3};
 
