@@ -14,10 +14,6 @@ Case = 1; // DW or DW50
 //BubbleShape = 1; // straight bubble
 BubbleShape = 2; // inclined bubble
 
-//non-dimensional sections
-L1 = 7*D; 
-//L2 = 128.87*D; 
-L2 = 20*D; 
 
 // Degassed water and DW50
 If( Case == 1 )
@@ -29,6 +25,13 @@ If( Case == 1 )
  //X = 6.30;   Li = 39.38e-03; 
  //X = 6.249;  Li = 37.07e-03; 
  //X = 6.358;  Li = 37.174e-03;
+
+ //non-dimensional sections
+ L1 = 7*D; 
+ L2 = 15*D; 
+
+ // channel start x coordinate
+ chxinit = -4.0;
 EndIf
 
 // Silicon oil
@@ -39,9 +42,16 @@ If( Case == 2 )
  r = 0.6*D; 
  //X = 3.075;Li = 26.142e-03;
  //X = 2.1957;Li = 29.759e-03;
- X = 2.83023;Li = 42.2645e-03;
+ //X = 2.83023;Li = 42.2645e-03;
  //X = 3.72;Li = 25.4005e-03;
- //X = 3.60;Li = 27.89e-03;
+ X = 3.60;Li = 37.89e-03;
+
+ //non-dimensional sections
+ L1 = 2*D; 
+ L2 = 22*D; 
+
+ // channel start x coordinate
+ chxinit = -4.0;
 EndIf
 
 // water
@@ -53,6 +63,13 @@ If( Case == 3 )
  //X = 3.965; Li = 35.1155e-03;
  //X = 2.94;  Li = 41.6655e-03;
  X = 6.871; Li = 22.1135e-03;
+
+ //non-dimensional sections
+ L1 = 6*D; 
+ L2 = 10*D; 
+
+ // channel start x coordinate
+ chxinit = -6.0;
 EndIf
 
 /* bubble width  = r;
@@ -144,8 +161,8 @@ k = newp;
  *    |----------------|                  |-----------------| 
  */
 
-Point(k+1) = {5.0,                         0.0, 0.0, wall};
-Point(k+2) = {5.0,                       D/2.0, 0.0, wall};
+Point(k+1) = {chxinit,                     0.0, 0.0, wall};
+Point(k+2) = {chxinit,                   D/2.0, 0.0, wall};
 Point(k+3) = {L1,                        D/2.0, 0.0, wall};
 Point(k+4) = {L1+L2, D/2.0 + (L2*4.5*D/128.87), 0.0, wall};
 Point(k+5) = {L1+L2,                       0.0, 0.0, wall};

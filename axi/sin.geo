@@ -28,13 +28,13 @@ dist = 0.5*r; // distance from the bubble to the left and right sections
  *      lambda
  * */
 A = 0.07;
-stretch = 10;
+stretch = 15;
 lambda = 4;
 wavenum = 2*Pi/lambda; 
-phase = 0.20*stretch*wavenum;
-xcf = 0.35*stretch;
+xcf = 0.70*8-2;
+phase = wavenum*(0.7*8.0-0.15*10.0-2);
 nCycles = stretch/lambda;
-nPoints = 40+1; // total number of points in the sinusoidal line
+nPoints = 60+1; // total number of points in the sinusoidal line
 Printf("nPoints: ",nPoints);
 Printf("-------------- Simulator2D:setALEBC() --------------");
 Printf("  phase: %f",phase);
@@ -64,7 +64,6 @@ For i In {1:nPoints}
 EndFor
 Printf("xc: %f, y: %f",xc,D/2.0 + A*Sin(wavenum*xc-phase));
 
-
 j = 1+k;
 // lines
 For i In {1:nPoints-1}
@@ -77,37 +76,24 @@ k = newp;
  *   k+1             k+2  6           3  k+3               k+5
  *    o----------------o---o------------o---o-----------------o
  *    
- *    |       ll       | r |     body   | r |       lr        |
+ *    |     left       | bl|     body   | br|     right       |
  *    |<-------------->|<->|<---------->|<->|<--------------->|
  */
 
 Point(k+1) = {0.0, 0.0, 0.0, wall};
-
-Extrude {ll, 0, 0} {
-  Point{k+1};
-}
-
-Point(k+3) = {(ll+dist)+body+2*r+dist,   0.0, 0.0, wall};
-
-Extrude {stretch-(ll+body+2*r+r/2.0+dist), 0, 0} {
-  Point{k+3};
-}
+Point(k+2) = {stretch, 0.0, 0.0, wall};
 
 bc = newl; Line(bc) = { 1, 4 };
 br = newl; Line(br) = { 3, 1 };
 bl = newl; Line(bl) = { 4, 6 };
 left = newl; Line(left) = { 6, k+1 };
-right = newl; Line(right) = {3, k+3};
-rightr = newl; Line(rightr) = {k+3, k+4};
-
+right = newl; Line(right) = {k+2,3};
 in = newl; Line(in) = {k+1, k-nPoints};
-out = newl; Line(out) = {k+4, k-1};
+out = newl; Line(out) = {k-1, k+2};
 
-
-//Physical Line('wallNoSlip') = {k-nPoints:k+(nPoints-2):1,in};
 Physical Line('wallNoSlip') = {k-nPoints:k-2:1,in};
-Physical Line('wallOutflow') = {-out };
-Physical Line('wallNormalV') = {-left,bl,bc, br, -right,-rightr};// symmetry bc
+Physical Line('wallOutflow') = {out };
+Physical Line('wallNormalV') = {left,bl,bc,br,right};// symmetry bc
 
 j=200*0;
 For t In {1:nb}
