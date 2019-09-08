@@ -1,22 +1,56 @@
 
-wall = 0.4;
-nPoints = 20;
+wall = 0.4; // refinement
+nPoints = 40; // number of nodes
+angRot = 0.0*(-Pi/6); // rotation
 
-L = 4.0;
+// cases
+Case = 1; // circle
+//Case = 2; // ellipse
+//Case = 3; // symmetric airfoil
+//Case = 4; // assymmetric airfoil
 
-// airfoil standard profile
-xCenter = -0.20;
-yCenter =  0.00;
-R = 1.20;
+// circle
+If( Case == 1 )
+ Printf("Circle with R=5");
+ xCenter = 0.00;
+ yCenter =  0.00;
+ R = 5.00;
+ L = 20.0;
+ nPoints = 60; // number of nodes
+ //wall = 2.0; // refinement
+ wall = 1.8; // refinement
+ //wall = 0.5; // refinement
+ Printf("radius = %f",R);
+EndIf
 
-// airfoil profile
-xCenter = -0.20;
-yCenter =  0.25;
-R = Sqrt(1.2*1.2 + 0.25*0.25);
+// ellipse
+If( Case == 2 )
+ Printf("Ellipse R=1");
+ xCenter = 0.00;
+ yCenter = 0.00;
+ R = 1.50;
+ L = 4.0;
+EndIf
+
+// symmetric airfoil profile
+If( Case == 3 )
+ Printf("Symmetric airfiol");
+ xCenter = -0.20;
+ yCenter =  0.00;
+ R = 1.2;
+ L = 4.0;
+EndIf
+
+// assymmetric airfoil profile
+If( Case == 4 )
+ Printf("Assymmetric airfiol");
+ xCenter = -0.15;
+ yCenter =  0.10;
+ R = Sqrt(1.2*1.2 + 0.25*0.25);
+ L = 4.0;
+EndIf
 
 dTheta = 2.0*Pi/nPoints;
-
-angRot = 0.0*(-Pi/4);
 
 theta = 0.01;
 k = 0;
