@@ -16,7 +16,7 @@ For t In {0:nb-1}
  zc = 0.0;
 
  // include torus.geo file
- Include '../bubbleShape/taylor.geo';
+ Include './taylor.geo';
 EndFor
 
 j=200*0;
