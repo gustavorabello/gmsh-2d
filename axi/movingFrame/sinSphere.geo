@@ -1,11 +1,12 @@
 // Gmsh project created on Thu Jun  4 09:24:57 2009
 
 nb = 1;
-b1 = 0.04;
-wall = 0.04;
+b1 = 0.025;
+wall = 0.025;
 
 D = 1.0;
-r = 0.3*D;
+kappa = 0.78; // ratio of drop radius and channel radius Hemmat1996,Olgac2006
+r = kappa*D/2.0;
 slug = 1.5*D;
 pert = (0.0/100.0)*r;
 
@@ -28,7 +29,7 @@ dist = 1.0*r; // distance from the bubble to the left and right sections
  *      lambda
  * */
 A = 0.07;
-stretch = 5;
+stretch = 8;
 lambda = 4;
 wavenum = 2*Pi/lambda; 
 stfixed = 10.0;     // stretch of the fixed sinSphere.geo
