@@ -1,11 +1,12 @@
 // Gmsh project created on Thu Jun  4 09:24:57 2009
 
 nb = 1;
-b1 = 0.04;
-wall = 0.04;
+b1 = 0.01;
+wall = 0.01;
 
 D = 1.0;
-r = 0.3*D;
+kappa = 0.85; // ratio of drop radius and ch
+r = kappa*D/2.0; 
 slug = 1.5*D;
 pert = (0.0/100.0)*r;
 
@@ -28,13 +29,13 @@ dist = 1.0*r; // distance from the bubble to the left and right sections
  *      lambda
  * */
 A = 0.07;
-stretch = 10;
+stretch = 8;
 lambda = 4;
 wavenum = 2*Pi/lambda; 
 phase = 0*(2*Pi/180);
 xcf = 0.15*stretch;
 nCycles = stretch/lambda;
-nPoints = 40+1; // total number of points in the sinusoidal line
+nPoints = (40.0/10.0)*stretch+1; // total number of points in sinusoidal line
 Printf("nPoints: ",nPoints);
 Printf("-------------- Simulator2D:setALEBC() --------------");
 Printf("  phase: %f",phase);
