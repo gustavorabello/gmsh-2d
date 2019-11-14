@@ -2,9 +2,9 @@
 wall = 0.025;
 
 Point(1) = { 0.0, 1.0, 0.0, wall};
-Point(2) = { 1.0, 1.0, 0.0, wall};
+Point(2) = { 3.0, 1.0, 0.0, wall};
 Point(3) = { 0.0, 0.0, 0.0, wall};
-Point(4) = { 1.0, 0.0, 0.0, wall};
+Point(4) = { 3.0, 0.0, 0.0, wall};
 
 l = newl;
 Line(l) = {1, 3};
@@ -18,5 +18,7 @@ Line(r) = {4, 2};
 t = newl;
 Line(t) = {2, 1};
 
-Physical Line('wallLidDrivenNoSlip') = {l,r,b};
-Physical Line('wallLidDriven') = { t};
+Physical Line('wallNoSlip') = {t};
+Physical Line('wallNormalV') = {b};
+Physical Line('wallInflowU') = {l};
+Physical Line('wallOutflow') = {r};
