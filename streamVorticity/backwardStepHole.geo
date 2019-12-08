@@ -48,7 +48,7 @@ Line(10) = {11, 6};
 
 Physical Line('wallInflowU') = {10};
 Physical Line('wallOutflow') = {8};
-Physical Line('wallNoSlip') = {5, 6, 7};
-Physical Line('wallNoSlipConst') = {9};
+Physical Line('wallNoSlipConst') = {5, 6, 7};
+Physical Line('wallNoSlip') = {9};
 Physical Line('wallHole1') = {-4, -3, -2, -1};
 
