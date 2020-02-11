@@ -1,6 +1,6 @@
 // axisymmetric bubble in microchannel
 
-wall = 0.045; 
+wall = 0.03; 
 b1 = 0.03; 
 nb = 1; 
  
