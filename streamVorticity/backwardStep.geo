@@ -32,7 +32,7 @@ Line(4) = {3, 4};
 Line(5) = {4, 5};
 Line(6) = {5, 0};
 
-Physical Line('wallInflowU') = {6};
+Physical Line('wallStep') = {6};
 Physical Line('wallOutflow') = {4};
-Physical Line('wallNoSlipVar') = {5};
-Physical Line('wallNoSlipConst') = {1,2,3};
+Physical Line('wallNoSlipConst') = {5};
+Physical Line('wallNoSlip') = {1,2,3};

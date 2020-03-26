@@ -46,8 +46,8 @@ s1=newreg;
 Line(s1) = {k+1, k+1+nPoints};
 Line(s1+1) = {k+nPoints, k+2*nPoints};
 
-Physical Line('wallNoSlipVar') = {k+1:k+(nPoints-1):1};
-Physical Line('wallNoSlip') = {1+k+(nPoints-1):k+(nPoints-1)*2:1};
+Physical Line('wallNoSlipSinTop') = {k+1:k+(nPoints-1):1};
+Physical Line('wallNoSlipSinBottom') = {1+k+(nPoints-1):k+(nPoints-1)*2:1};
 Physical Line('wallInflowU') = {s1};
 Physical Line('wallOutflow') = {s1+1};
 
