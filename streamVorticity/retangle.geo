@@ -18,7 +18,7 @@ Line(r) = {4, 2};
 t = newl;
 Line(t) = {2, 1};
 
-Physical Line('wallNoSlipVar') = {t};
-Physical Line('wallNoSlipConst') = {b};
+Physical Line('wallNoSlipConst') = {t};
+Physical Line('wallNoSlip') = {b};
 Physical Line('wallInflowU') = {l};
 Physical Line('wallOutflow') = {r};
