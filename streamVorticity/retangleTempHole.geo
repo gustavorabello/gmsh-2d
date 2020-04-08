@@ -35,5 +35,6 @@ Physical Line('wallNoSlipConst') = {t};
 Physical Line('wallNoSlip') = {b};
 Physical Line('wallInflowU') = {l};
 Physical Line('wallOutflow') = {r};
-Physical Line('wallHole') = {4, 1, 2, 3};
+//Physical Line('wallHole') = {4, 1, 2, 3};
+Physical Line('wallHoleMoving') = {4, 1, 2, 3};
 //+
