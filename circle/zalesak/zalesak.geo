@@ -1,7 +1,7 @@
 
 // refinement
 wall = 0.1;
-droplet=0.04;
+droplet=0.07;
 
 D=1.0;
 radius=D/2.0;
