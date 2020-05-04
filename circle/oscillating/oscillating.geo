@@ -1,26 +1,26 @@
 
 nb = 1;
-b1 = 0.02;
-wall = 20*b1;
+b1 = 0.04;
+wall = 5*b1;
 
 D = 1.0;
 r = 0.5*D;
-pert = (1.0/100)*r;
+pert = (0.0/100)*r;
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 2.0;
- yc = 2.0;
+ xc = 0.0;
+ yc = 0.0;
 
  // include torus.geo file
  Include '../../bubbleShape/circle.geo';
 EndFor
 
 k=10000;
-Point(k+6) = {0, 0, 0,wall};
-Point(k+7) = {4*D, 0, 0,wall};
-Point(k+8) = {4*D, 4*D, 0,wall};
-Point(k+9) = {0, 4*D, 0,wall};
+Point(k+6) = {-2*D, -2*D, 0,wall};
+Point(k+7) = { 2*D, -2*D, 0,wall};
+Point(k+8) = { 2*D,  2*D, 0,wall};
+Point(k+9) = {-2*D,  2*D, 0,wall};
 
 Line(k+5) = {k+9, k+8};
 Line(k+6) = {k+8, k+7};
