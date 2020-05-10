@@ -1,7 +1,7 @@
 // axisymmetric bubble in microchannel
 
-wall = 0.06; 
-b1 = 0.05; 
+wall = 0.04; 
+b1 = 0.02; 
 nb = 1; 
  
 D = 1.0; 
@@ -68,7 +68,7 @@ Physical Line('wallOutflow') = {in};
 Physical Line('wallNormalV') = { -4, -6, bc, br, bl, left, right };  // symmetry bc
 Physical Line(Sprintf("bubble%g",1)) = {1, 2, 3};
 
-Transfinite Line {8} = 80 Using Progression 1;
+Transfinite Line {8} = 220 Using Progression 1;
 Transfinite Line {12, 11} = 8 Using Progression 1;
 Transfinite Line {9} = 60 Using Progression 1;
 Transfinite Line {10, 13} = 10 Using Progression 1;
