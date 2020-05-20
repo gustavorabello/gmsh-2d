@@ -1,52 +1,54 @@
 // axisymmetric bubble in microchannel
-D = 1.0; // channel diameter
-//Mesh.ElementOrder = 2;
 
-/* Case 17: */
-l1 = 0.025; // very fine
-l2 = 0.05; // fine
-l3 = 0.014; // coarse
+wall = 0.04; 
+b1 = 0.02; 
+nb = 1; 
+ 
+D = 1.0; 
+r = 0.35*D; 
+// case 6
+//body = 1.212*D;
+// case 7
+body = 1.937*D; 
+slug = 0.7*r; 
 
-r = 0.3*D; //0.45*D;
-body = 1.88834*D; //0.417042*D;
+For t In {0:nb-1}
+ // bubble's coordinates
+ // case 6
+ //xc = 1.7+(slug+body+r+r/2.0)*t;
+ // case 7
+ xc = 2.2+(slug+body+r+r/2.0)*t;
+ yc = 0.0;
+ zc = 0.0;
 
-ll = 0.5*D; // length of the left section
-lr = 1.5*D; // length of the right section
+ // include torus.geo file
+ Include '../bubbleShape/taylorAxi.geo';
+EndFor
 
-/*  Case 18:
-l1 = 0.05; // very fine
-l2 = 0.08; // fine
-l3 = 0.1; // coarse
+// Computing bubble volume 
+// prolate ellipsoid --> V1 = 4/3 * Pi * a * b * b
+a = r/2.0;
+b = r;
+V1 = (4.0/3.0)*Pi*a*b*b/2.0;
 
-0.45*D;
-body = 1.42685*D;
+// conical frustum section --> V2 
+r1 = r;
+r2 = r;
+h  = body;
+V2 = (1.0/3.0)*Pi*h*(r1*r1 + r1*r2 + r2*r2);
 
-ll = 0.5*D; // length of the left section
+// prolate ellipsoid --> V3 = 4/3 * Pi * a * b * b
+a = r;
+b = r;
+V3 = (4.0/3.0)*Pi*a*b*b/2.0;
+
+Do = 494E-6; // channel diameter [m]
+Printf("non-dim bubble volume V = %f [-]",(V1+V2+V3));
+Printf("non-dim bubble equiv diameter deq^3 = %f [-]",(V1+V2+V3)*6/Pi);
+Printf("bubble volume (channel D=%f [m]) V = %fE-12 [m^3]",Do,(V1+V2+V3)*Do*Do*Do*1e12);
+
+ll = 1.5*D; // length of the left section
 lr = 6.5*D; // length of the right section
-*/
-
-/* Defining bubble shape: */
-xc = 0.0;
-yc = 0.0;
-
-/*
- *              5           2
- *              o --------- o 
- *            /              `,     
- *          6 o o 4       1 o  o 3
- *
- */
-
-Point(1) = {  xc+r+body,   yc, 0.0, l2}; // center
-Point(2) = {  xc+r+body, yc+r, 0.0, l1}; // up
-Point(3) = {xc+r+body+r,   yc, 0.0, l1}; // right
-Point(4) = {       xc+r,   yc, 0.0, l2}; // center
-Point(5) = {       xc+r, yc+r, 0.0, l1}; // up
-Point(6) = {         xc,   yc, 0.0, l1}; // left
-
-Ellipse(1) = { 2, 1, 1, 3 };
-Ellipse(2) = { 6, 4, 4, 5 };
-Line(3) = { 5, 2 };
 
 dist = 0.5*r; // distance from the bubble to the left and right sections
 
@@ -59,15 +61,15 @@ k = newp;
  *    o----------------o--o------------o--o-----------------o
  */
 
-Point(k+1) = {-(ll+dist),   0.0, 0.0, l3};
-Point(k+2) = {-(ll+dist), D/2.0, 0.0, l3};
+Point(k+1) = {-(ll+dist),   0.0, 0.0, wall};
+Point(k+2) = {-(ll+dist), D/2.0, 0.0, wall};
 
 Extrude {ll, 0, 0} {
   Point{k+1, k+2};
 }
 
-Point(k+5) = {body+2*r+dist,   0.0, 0.0, l3};
-Point(k+6) = {body+2*r+dist, D/2.0, 0.0, l3};
+Point(k+5) = {body+2*r+dist,   0.0, 0.0, wall};
+Point(k+6) = {body+2*r+dist, D/2.0, 0.0, wall};
 
 Extrude {lr, 0, 0} {
   Point{k+5, k+6};
@@ -85,7 +87,7 @@ right = newl; Line(right) = { k+5, 3 };
 in = newl; Line(in) = {k+1, k+2};
 out = newl; Line(out) = {k+8, k+7};
 
-Characteristic Length { k+3, k+4, k+5, k+6 } = l2;
+Characteristic Length { k+3, k+4, k+5, k+6 } = wall;
 
 /* Defining boundary conditions: */
 Physical Line('wallInflowUParabolic3d') = { in };
