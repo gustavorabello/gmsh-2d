@@ -1,23 +1,58 @@
 // Gmsh project created on Fri Feb  6 14:28:22 2009
 
+Case = 7; // microAxiSym (Sepideh's and Erik's PhD thesis)
 nb = 1;
-b1 = 0.05;
+b1 = 0.04;
 
 D = 1.0;
-r = 0.4*D;
-body = 1.0*D;
+r = 0.35*D;
+body = 1.5*D; 
+If( Case == 6 ) // (air-glycerol microAxiSym)
+ body = 1.212*D;
+EndIf
+If( Case == 7 ) // (air-glycerol microAxiSym)
+ body = 1.937*D;
+EndIf
 slug = 0.7*r;
-pert = (20.0/100)*r;
+pert = (0.0/100)*r;
 
 For t In {0:nb-1}
  // bubble's coordinates
- xc = 2.0+(slug+body+r+r/2.0)*t;
+ xc = 1.8+(slug+body+r+r/2.0)*t;
+ If( Case == 6 ) // (air-glycerol microAxiSym)
+  xc = 1.7+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case == 7 ) // (air-glycerol microAxiSym)
+  xc = 2.2+(slug+body+r+r/2.0)*t;
+ EndIf
  yc = 0.0;
  zc = 0.0;
 
  // include torus.geo file
  Include './taylorAxi.geo';
 EndFor
+
+// Computing bubble volume 
+// prolate ellipsoid --> V1 = 4/3 * Pi * a * b * b
+a = r/2.0;
+b = r;
+V1 = (4.0/3.0)*Pi*a*b*b/2.0;
+
+// conical frustum section --> V2 
+r1 = r;
+r2 = r;
+h  = body;
+V2 = (1.0/3.0)*Pi*h*(r1*r1 + r1*r2 + r2*r2);
+
+// prolate ellipsoid --> V3 = 4/3 * Pi * a * b * b
+a = r;
+b = r;
+V3 = (4.0/3.0)*Pi*a*b*b/2.0;
+
+Do = 494E-6; // channel diameter [m]
+Printf("non-dim bubble volume V = %f [-]",(V1+V2+V3));
+Printf("non-dim bubble equiv diameter deq^3 = %f [-]",(V1+V2+V3)*6/Pi);
+Printf("bubble volume (channel D=%f [m]) V = %fE-12 [m^3]",Do,(V1+V2+V3)*Do*Do*Do*1e12);
 
 j=200*0;
 For t In {1:nb}

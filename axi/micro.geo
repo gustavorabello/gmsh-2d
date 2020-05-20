@@ -1,27 +1,35 @@
 // axisymmetric bubble in microchannel
 
+Case = 7; // microAxiSym (Sepideh's and Erik's PhD thesis)
 wall = 0.04; 
 b1 = 0.02; 
 nb = 1; 
  
 D = 1.0; 
 r = 0.35*D; 
-// case 6
-//body = 1.212*D;
-// case 7
-body = 1.937*D; 
-slug = 0.7*r; 
+body = 1.5*D; 
+If( Case == 6 ) // (air-glycerol microAxiSym)
+ body = 1.212*D;
+EndIf
+If( Case == 7 ) // (air-glycerol microAxiSym)
+ body = 1.937*D;
+EndIf
+slug = 0.7*r;
+pert = (0.0/100)*r;
 
 For t In {0:nb-1}
  // bubble's coordinates
- // case 6
- //xc = 1.7+(slug+body+r+r/2.0)*t;
- // case 7
- xc = 2.2+(slug+body+r+r/2.0)*t;
+ xc = 1.8+(slug+body+r+r/2.0)*t;
+ If( Case == 6 ) // (air-glycerol microAxiSym)
+  xc = 1.7+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case == 7 ) // (air-glycerol microAxiSym)
+  xc = 2.2+(slug+body+r+r/2.0)*t;
+ EndIf
  yc = 0.0;
  zc = 0.0;
 
- // include torus.geo file
+ // include file
  Include '../bubbleShape/taylorAxi.geo';
 EndFor
 
