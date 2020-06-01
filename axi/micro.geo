@@ -1,6 +1,6 @@
 // axisymmetric bubble in microchannel
 
-Case = 7; // microAxiSym (Sepideh's and Erik's PhD thesis)
+Case = 6; // microAxiSym (Sepideh's and Erik's PhD thesis)
 wall = 0.04; 
 b1 = 0.02; 
 nb = 1; 
@@ -9,10 +9,14 @@ D = 1.0;
 r = 0.35*D; 
 body = 1.5*D; 
 If( Case == 6 ) // (air-glycerol microAxiSym)
- body = 1.212*D;
+ body = 1.075*D;
 EndIf
 If( Case == 7 ) // (air-glycerol microAxiSym)
- body = 1.937*D;
+ body = 1.268*D;
+EndIf
+
+If( Case > 15 ) // (air-water microAxiSym)
+ body = 1.195*D;
 EndIf
 slug = 0.7*r;
 pert = (0.0/100)*r;
@@ -21,10 +25,13 @@ For t In {0:nb-1}
  // bubble's coordinates
  xc = 1.8+(slug+body+r+r/2.0)*t;
  If( Case == 6 ) // (air-glycerol microAxiSym)
-  xc = 1.7+(slug+body+r+r/2.0)*t;
+  xc = 1.4+(slug+body+r+r/2.0)*t;
  EndIf
  If( Case == 7 ) // (air-glycerol microAxiSym)
-  xc = 2.2+(slug+body+r+r/2.0)*t;
+  xc = 1.6+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case > 15 ) // (air-water microAxiSym)
+  xc = 1.5+(slug+body+r+r/2.0)*t;
  EndIf
  yc = 0.0;
  zc = 0.0;
@@ -50,7 +57,14 @@ a = r;
 b = r;
 V3 = (4.0/3.0)*Pi*a*b*b/2.0;
 
+If( Case > 15 ) // (air-water microAxiSym)
+ Do = 514E-6; // channel diameter [m]
+EndIf
+
+If( Case < 15 ) // (air-water microAxiSym)
 Do = 494E-6; // channel diameter [m]
+EndIf
+
 Printf("non-dim bubble volume V = %f [-]",(V1+V2+V3));
 Printf("non-dim bubble equiv diameter deq^3 = %f [-]",(V1+V2+V3)*6/Pi);
 Printf("bubble volume (channel D=%f [m]) V = %fE-12 [m^3]",Do,(V1+V2+V3)*Do*Do*Do*1e12);
