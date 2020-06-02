@@ -1,52 +1,76 @@
 // axisymmetric bubble in microchannel
-D = 1.0; // channel diameter
-//Mesh.ElementOrder = 2;
 
-/* Case 17: */
-l1 = 0.025; // very fine
-l2 = 0.05; // fine
-l3 = 0.014; // coarse
+Case = 21; // microAxiSym (Sepideh's and Erik's PhD thesis)
+wall = 0.02; 
+b1 = 0.01; 
+nb = 1; 
+ 
+D = 1.0; 
+r = 0.45*D; 
+body = 1.5*D; 
+If( Case == 6 ) // (air-glycerol microAxiSym)
+ body = 1.075*D;
+EndIf
+If( Case == 7 ) // (air-glycerol microAxiSym)
+ body = 1.268*D;
+EndIf
 
-r = 0.3*D; //0.45*D;
-body = 1.88834*D; //0.417042*D;
+If( Case > 15 ) // (air-water microAxiSym)
+ body = 0.74*D;
+EndIf
+slug = 0.7*r;
+pert = (0.0/100)*r;
 
-ll = 1.5*D; // length of the left section
-lr = 0.5*D; // length of the right section
+For t In {0:nb-1}
+ // bubble's coordinates
+ xc = 1.8+(slug+body+r+r/2.0)*t;
+ If( Case == 6 ) // (air-glycerol microAxiSym)
+  xc = 1.4+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case == 7 ) // (air-glycerol microAxiSym)
+  xc = 1.6+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case > 15 ) // (air-water microAxiSym)
+  xc = 0.9+(slug+body+r+r/2.0)*t;
+ EndIf
+ yc = 0.0;
+ zc = 0.0;
 
-/*  Case 18:
-l1 = 0.05; // very fine
-l2 = 0.08; // fine
-l3 = 0.1; // coarse
+ // include file
+ Include '../../bubbleShape/taylorAxi.geo';
+EndFor
 
-0.45*D;
-body = 1.42685*D;
+// Computing bubble volume 
+// prolate ellipsoid --> V1 = 4/3 * Pi * a * b * b
+a = r/2.0;
+b = r;
+V1 = (4.0/3.0)*Pi*a*b*b/2.0;
 
-ll = 0.5*D; // length of the left section
-lr = 6.5*D; // length of the right section
-*/
+// conical frustum section --> V2 
+r1 = r;
+r2 = r;
+h  = body;
+V2 = (1.0/3.0)*Pi*h*(r1*r1 + r1*r2 + r2*r2);
 
-/* Defining bubble shape: */
-xc = 0.0;
-yc = 0.0;
+// prolate ellipsoid --> V3 = 4/3 * Pi * a * b * b
+a = r;
+b = r;
+V3 = (4.0/3.0)*Pi*a*b*b/2.0;
 
-/*
- *              5           2
- *              o --------- o 
- *            /              `,     
- *          6 o o 4       1 o  o 3
- *
- */
+If( Case > 15 ) // (air-water microAxiSym)
+ Do = 514E-6; // channel diameter [m]
+EndIf
 
-Point(1) = {  xc+r+body,   yc, 0.0, l2}; // center
-Point(2) = {  xc+r+body, yc+r, 0.0, l1}; // up
-Point(3) = {xc+r+body+r,   yc, 0.0, l1}; // right
-Point(4) = {       xc+r,   yc, 0.0, l2}; // center
-Point(5) = {       xc+r, yc+r, 0.0, l1}; // up
-Point(6) = {         xc,   yc, 0.0, l1}; // left
+If( Case < 15 ) // (air-water microAxiSym)
+Do = 494E-6; // channel diameter [m]
+EndIf
 
-Ellipse(1) = { 2, 1, 1, 3 };
-Ellipse(2) = { 6, 4, 4, 5 };
-Line(3) = { 5, 2 };
+Printf("non-dim bubble volume V = %f [-]",(V1+V2+V3));
+Printf("non-dim bubble equiv diameter deq^3 = %f [-]",((V1+V2+V3)*6/Pi)^(1/3));
+Printf("bubble volume (channel D=%f [m]) V = %fE-12 [m^3]",Do,(V1+V2+V3)*Do*Do*Do*1e12);
+
+ll = 6.5*D; // length of the left section
+lr = 1.5*D; // length of the right section
 
 dist = 0.5*r; // distance from the bubble to the left and right sections
 
@@ -59,15 +83,15 @@ k = newp;
  *    o----------------o--o------------o--o-----------------o
  */
 
-Point(k+1) = {-(ll+dist),   0.0, 0.0, l3};
-Point(k+2) = {-(ll+dist), D/2.0, 0.0, l3};
+Point(k+1) = {-(ll+dist),   0.0, 0.0, wall};
+Point(k+2) = {-(ll+dist), D/2.0, 0.0, wall};
 
 Extrude {ll, 0, 0} {
   Point{k+1, k+2};
 }
 
-Point(k+5) = {body+2*r+dist,   0.0, 0.0, l3};
-Point(k+6) = {body+2*r+dist, D/2.0, 0.0, l3};
+Point(k+5) = {body+2*r+dist,   0.0, 0.0, wall};
+Point(k+6) = {body+2*r+dist, D/2.0, 0.0, wall};
 
 Extrude {lr, 0, 0} {
   Point{k+5, k+6};
@@ -85,7 +109,7 @@ right = newl; Line(right) = { k+5, 3 };
 in = newl; Line(in) = {k+1, k+2};
 out = newl; Line(out) = {k+8, k+7};
 
-Characteristic Length { k+3, k+4, k+5, k+6 } = l2;
+Characteristic Length { k+3, k+4, k+5, k+6 } = wall;
 
 /* Defining boundary conditions: */
 Physical Line('wallInflowUParabolic3d') = { in,out };
