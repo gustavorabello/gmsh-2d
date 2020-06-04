@@ -1,6 +1,6 @@
 // axisymmetric bubble in microchannel
 
-Case = 19; // microAxiSym (Sepideh's and Erik's PhD thesis)
+Case = 22; // microAxiSym (Sepideh's and Erik's PhD thesis)
 wall = 0.08; 
 b1 = 0.005; 
 nb = 1; 
@@ -14,17 +14,20 @@ EndIf
 If( Case == 7 ) // (air-glycerol microAxiSym)
  body = 1.268*D;
 EndIf
-
 If( Case == 18 ) // (air-water microAxiSym)
  body = 1.906*D;
 EndIf
-
 If( Case == 19 ) // (air-water microAxiSym)
- body = 2.512*D;
+ body = 1.862*D;
 EndIf
-
 If( Case == 20 ) // (air-water microAxiSym)
- body = 2.8346*D;
+ body = 2.51*D;
+EndIf
+If( Case == 21 ) // (air-water microAxiSym)
+ body = 2.082*D;
+EndIf
+If( Case == 22 ) // (air-water microAxiSym)
+ body = 2.475*D;
 EndIf
 slug = 0.7*r;
 pert = (0.0/100)*r;
@@ -42,10 +45,16 @@ For t In {0:nb-1}
   xc = 2.25+(slug+body+r+r/2.0)*t;
  EndIf
  If( Case == 19 ) // (air-water microAxiSym)
-  xc = 2.8+(slug+body+r+r/2.0)*t;
+  xc = 2.1+(slug+body+r+r/2.0)*t;
  EndIf
  If( Case == 20 ) // (air-water microAxiSym)
-  xc = 3.1+(slug+body+r+r/2.0)*t;
+  xc = 2.9+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case == 21 ) // (air-water microAxiSym)
+  xc = 2.4+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case == 22 ) // (air-water microAxiSym)
+  xc = 2.8+(slug+body+r+r/2.0)*t;
  EndIf
  yc = 0.0;
  zc = 0.0;
