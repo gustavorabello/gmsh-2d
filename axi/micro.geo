@@ -1,32 +1,52 @@
 // axisymmetric bubble in microchannel
 
-Case = 20; // microAxiSym (Sepideh's and Erik's PhD thesis)
+Case = 17; // microAxiSym (Sepideh's and Erik's PhD thesis)
 wall = 0.08; 
 b1 = 0.005; 
 nb = 1; 
  
 D = 1.0; 
 r = 0.42*D; 
-body = 1.5*D; 
-If( Case == 6 ) // (air-glycerol microAxiSym)
- body = 1.075*D;
+body = 1.7*D; 
+
+t If( Case == 13 ) // (air-glycerol microAxiSym)
+ r = 0.35*D; 
+ body = 3.90*D;
 EndIf
-If( Case == 7 ) // (air-glycerol microAxiSym)
- body = 1.268*D;
+If( Case == 14 ) // (air-glycerol microAxiSym)
+ r = 0.35*D; 
+ body = 1.94*D;
+EndIf
+If( Case == 15 ) // (air-glycerol microAxiSym)
+ r = 0.35*D; 
+ body = 1.99*D;
+EndIf
+If( Case == 16 ) // (air-glycerol microAxiSym)
+ r = 0.35*D; 
+ body = 2.306*D;
+EndIf
+If( Case == 17 ) // (air-glycerol microAxiSym)
+ r = 0.35*D; 
+ body = 1.334*D;
 EndIf
 If( Case == 18 ) // (air-water microAxiSym)
+ r = 0.42*D; 
  body = 1.906*D;
 EndIf
 If( Case == 19 ) // (air-water microAxiSym)
+ r = 0.42*D; 
  body = 1.862*D;
 EndIf
 If( Case == 20 ) // (air-water microAxiSym)
+ r = 0.42*D; 
  body = 2.51*D;
 EndIf
 If( Case == 21 ) // (air-water microAxiSym)
+ r = 0.42*D; 
  body = 2.082*D;
 EndIf
 If( Case == 22 ) // (air-water microAxiSym)
+ r = 0.42*D; 
  body = 2.475*D;
 EndIf
 slug = 0.7*r;
@@ -35,10 +55,19 @@ pert = (0.0/100)*r;
 For t In {0:nb-1}
  // bubble's coordinates
  xc = 1.8+(slug+body+r+r/2.0)*t;
- If( Case == 6 ) // (air-glycerol microAxiSym)
-  xc = 1.4+(slug+body+r+r/2.0)*t;
+ If( Case == 13 ) // (air-glycerol microAxiSym)
+  xc = 4.1+(slug+body+r+r/2.0)*t;
  EndIf
- If( Case == 7 ) // (air-glycerol microAxiSym)
+ If( Case == 14 ) // (air-glycerol microAxiSym)
+  xc = 2.1+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case == 15 ) // (air-glycerol microAxiSym)
+  xc = 2.2+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case == 16 ) // (air-glycerol microAxiSym)
+  xc = 2.6+(slug+body+r+r/2.0)*t;
+ EndIf
+ If( Case == 17 ) // (air-glycerol microAxiSym)
   xc = 1.6+(slug+body+r+r/2.0)*t;
  EndIf
  If( Case == 18 ) // (air-water microAxiSym)
@@ -80,11 +109,11 @@ a = r;
 b = r;
 V3 = (4.0/3.0)*Pi*a*b*b/2.0;
 
-If( Case > 15 ) // (air-water microAxiSym)
+If( Case > 17 ) // (air-water microAxiSym)
  Do = 514E-6; // channel diameter [m]
 EndIf
 
-If( Case < 15 ) // (air-water microAxiSym)
+If( Case < 18 ) // (air-water microAxiSym)
 Do = 494E-6; // channel diameter [m]
 EndIf
 
