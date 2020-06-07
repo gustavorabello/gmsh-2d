@@ -1,6 +1,6 @@
 // axisymmetric bubble in microchannel
 
-Case = 22; // microAxiSym (Sepideh's and Erik's PhD thesis)
+Case = 20; // microAxiSym (Sepideh's and Erik's PhD thesis)
 wall = 0.08; 
 b1 = 0.005; 
 nb = 1; 
@@ -88,6 +88,7 @@ If( Case < 15 ) // (air-water microAxiSym)
 Do = 494E-6; // channel diameter [m]
 EndIf
 
+Printf("case = %g ",Case);
 Printf("non-dim bubble volume V = %f [-]",(V1+V2+V3));
 Printf("non-dim bubble equiv diameter deq^3 = %f [-]",((V1+V2+V3)*6/Pi)^(1/3));
 Printf("bubble volume (channel D=%f [m]) V = %fE-12 [m^3]",Do,(V1+V2+V3)*Do*Do*Do*1e12);
