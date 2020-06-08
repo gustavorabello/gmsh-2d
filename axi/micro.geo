@@ -1,15 +1,15 @@
 // axisymmetric bubble in microchannel
 
-Case = 17; // microAxiSym (Sepideh's and Erik's PhD thesis)
+Case = 16; // microAxiSym (Sepideh's and Erik's PhD thesis)
 wall = 0.08; 
-b1 = 0.005; 
+b1 = 0.015; 
 nb = 1; 
  
 D = 1.0; 
 r = 0.42*D; 
 body = 1.7*D; 
 
-t If( Case == 13 ) // (air-glycerol microAxiSym)
+If( Case == 13 ) // (air-glycerol microAxiSym)
  r = 0.35*D; 
  body = 3.90*D;
 EndIf
@@ -124,7 +124,7 @@ Printf("bubble volume (channel D=%f [m]) V = %fE-12 [m^3]",Do,(V1+V2+V3)*Do*Do*D
 Printf("bubble volume (channel D=%f [m]) V = %f [micro l]",Do,(V1+V2+V3)*Do*Do*Do*1e9);
 
 ll = 1.5*D; // length of the left section
-lr = 6.5*D; // length of the right section
+lr = 12.5*D; // length of the right section
 
 dist = 0.5*r; // distance from the bubble to the left and right sections
 
