@@ -3,7 +3,6 @@ D = 1.0; // channel diameter
 
 /* Case 17: */
 wall = 0.08; 
-b1 = 0.005; 
 
 L = 18*D; // length of the right section
 
