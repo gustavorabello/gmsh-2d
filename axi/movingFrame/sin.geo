@@ -7,7 +7,7 @@ wall = 0.025;
 D = 1.0;
 r = 0.25*D;
 slug = 1.5*D;
-body = 1*D;
+body = 2*D;
 pert = (0.0/100.0)*r;
 
 ll = 1.5*D; // length of the left section
@@ -28,13 +28,13 @@ dist = 1.0*r; // distance from the bubble to the left and right sections
  * k = -------- --> wave number
  *      lambda
  * */
-A = 0.07;
+A = 0.01;
 stretch = 8;
 lambda = 4;
 wavenum = 2*Pi/lambda; 
 stfixed = 8.0;     // stretch of the fixed sinSphere.geo
 xcf = 0.15*stfixed; // xc of the fixed sinSphere.geo
-xcm = 0.65*stretch; // xc of the moving sinSphere.geo (current)
+xcm = 0.75*stretch; // xc of the moving sinSphere.geo (current)
 phase = wavenum*(xcm-xcf); 
 nCycles = stretch/lambda;
 nPoints = (40.0/stfixed)*stretch+1; // total number of points in sinusoidal line
@@ -94,20 +94,21 @@ Point(k+2) = {stretch,   0.0, 0.0, wall};
 // at symmetry axis, the nodes should be connected, since interface is
 // also at the axis. It is not possible to have a straigth line
 // connecting the extreme edges of the domain (k+1 to k+5)
-bl = newl; Line(bl) = { 1, 4 };
+bl = newl; Line(bl) = { 4, 6 };
+bm = newl; Line(bm) = { 1, 4 };
 br = newl; Line(br) = { 3, 1 };
 right = newl; Line(right) = { 10000+nPoints+3,3 };
-left = newl; Line(left) = {4, 10000+nPoints+2};
+left = newl; Line(left) = {6, 10000+nPoints+2};
 in = newl; Line(in) = {k+1, k-nPoints};
 out = newl; Line(out) = {k+2, k-1};
 
 Physical Line('wallInflowZeroU') = {-out};
 Physical Line('wallMovingY') = {k-nPoints:k-2:1};
 Physical Line('wallOutflow') = { in };
-Physical Line('wallNormalV') = { left, bl, br, right };  // symmetry bc
+Physical Line('wallNormalV') = { left, bl, bm, br, right };  // symmetry bc
 
 j=200*0;
 For t In {1:nb}
-Physical Line(Sprintf("bubble%g",t)) = {j+1, -1*(j+2)};
+Physical Line(Sprintf("bubble%g",t)) = {j+1, j+2,j+3};
  j=200*t;
 EndFor
