@@ -1,6 +1,6 @@
 // axisymmetric bubble in divergent channel
-wall = 0.06; 
-b1 = 0.06; 
+wall = 0.04; 
+b1 = 0.02; 
 nb = 1; 
  
 D = 1.0; 
@@ -11,82 +11,111 @@ Case = 1; // DW or DW50
 //Case = 3; // HDMSO
 
 // bubble shape
-//BubbleShape = 1; // straight bubble
-BubbleShape = 2; // inclined bubble
-
-
-// Degassed water and DW50
-If( Case == 1 )
- Printf("Degassed water or DW50");
- Printf("Target Volume: 3.51E-8 < v < 3.55E-8");
- r = 0.36*D; 
- X = 6.438;  Li = 35.78e-03; 
- //X = 6.4461; Li = 40.165e-03;
- //X = 6.30;   Li = 39.38e-03; 
- //X = 6.249;  Li = 37.07e-03; 
- //X = 6.358;  Li = 37.174e-03;
-
- //non-dimensional sections
- L1 = 7*D; 
- L2 = 15*D; 
-
- // channel start x coordinate
- chxinit = -4.0;
-EndIf
-
-// Silicon oil
-If( Case == 2 )
- Printf("Silicon oil");
- Printf("Target Volume: 2.65E-8 < v < 5.89E-8");
- //r = 0.541*D; V = 2.65e-8; // volume [m^3]
- r = 0.6*D; 
- //X = 3.075;Li = 26.142e-03;
- //X = 2.1957;Li = 29.759e-03;
- //X = 2.83023;Li = 42.2645e-03;
- //X = 3.72;Li = 25.4005e-03;
- X = 3.60;Li = 37.89e-03;
-
- //non-dimensional sections
- L1 = 2*D; 
- L2 = 22*D; 
-
- // channel start x coordinate
- chxinit = -4.0;
-EndIf
-
-// water
-If( Case == 3 )
- Printf("Water");
- Printf("Target Volume: 5.65E-8 < v < 6.00E-8");
- r = 0.2*D;
- //X = 5.01;  Li = 26.375e-03;
- //X = 3.965; Li = 35.1155e-03;
- //X = 2.94;  Li = 41.6655e-03;
- X = 6.871; Li = 22.1135e-03;
-
- //non-dimensional sections
- L1 = 6*D; 
- L2 = 10*D; 
-
- // channel start x coordinate
- chxinit = -6.0;
-EndIf
+BubbleShape = 1; // straight bubble
+//BubbleShape = 2; // inclined bubble
 
 /* bubble width  = r;
  * bubble length = tail + body + nose
  *               =  D/2 + body + 3*D/4
  * X = aspect ratio (bubble length/bubble width)
  *   = lb / r
- * Li = initial nose position
  */
 Do = 0.00214; // reference diamenter (small)
 Df = 0.0214;  // larger diameter
-body = (2.0*r*X-2.0*r)/(1-2*X*4.5*D/128.87);
+
+// Degassed water and DW50
+If( Case == 1 )
+ Printf("Degassed water or DW50");
+ Printf("Target Volume: 3.51E-8 < v[m^3] < 3.55E-8");
+ Printf("Target non-dim Volume: 3.581507 < v[-] < 3.622322");
+ //non-dimensional sections
+ If( BubbleShape == 1 ) // straight bubble
+  V = 3.60; r = 0.4*D; 
+  body = (V - (2.0/3.0)*Pi*r*r*r - (2.0/3.0)*Pi*(r/2)*r*r)/(Pi*r*r);
+  L1 = 17*D; 
+  L2 = 4*D; 
+ EndIf
+ If( BubbleShape == 2 ) // inclined bubble
+  // body computed at python/misc/radius.py
+  V = 3.60; r = 0.4*D; body = 4.25215763664974; 
+  //V = 3.60; r = 0.5*D; body = 2.85235015254463; 
+  //V = 3.60; r = 0.6*D; body = 1.80873330649893; 
+  //V = 3.60; r = 0.7*D; body = 1.02146475145782; 
+  L1 = 7*D; 
+  L2 = 14*D; 
+ EndIf
+
+ // channel start x coordinate
+ chxinit = 0.0;
+EndIf
+
+// Silicon oil
+If( Case == 2 )
+ Printf("Silicon oil");
+ Printf("Target Volume: 2.65E-8 < v[m^3] < 5.89E-8");
+ Printf("Target non-dim Volume: 2.70398 < v[-] < 6.00999");
+ //non-dimensional sections
+ If( BubbleShape == 1 ) // straight bubble
+  V = 2.704; r = 0.4*D; 
+  body = (V - (2.0/3.0)*Pi*r*r*r - (2.0/3.0)*Pi*(r/2)*r*r)/(Pi*r*r);
+  L1 = 17*D; 
+  L2 = 4*D; 
+ EndIf
+ If( BubbleShape == 2 ) // inclined bubble
+  // body computed at python/misc/radius.py
+  //V = 2.70;  r = 0.6*D; body = 1.18868094788726; 
+  V = 4.30;  r = 0.5*D; body = 3.40982529698491; 
+  //V = 6.009; r = 0.5*D; body = 4.64506395330237; 
+  L1 = 7*D; 
+  L2 = 14*D; 
+ EndIf
+
+ // channel start x coordinate
+ chxinit = 0.0;
+EndIf
+
+// water
+If( Case == 3 )
+ Printf("Water");
+ Printf("Target Volume: 5.65E-8 < v[m^3] < 6.00E-8");
+ Printf("Target non-dim Volume: 5.795714 < v[-] < 6.12223");
+ //non-dimensional sections
+ If( BubbleShape == 1 ) // straight bubble
+  V = 5.90; r = 0.4*D; 
+  body = (V - (2.0/3.0)*Pi*r*r*r - (2.0/3.0)*Pi*(r/2)*r*r)/(Pi*r*r);
+  L1 = 17*D; 
+  L2 = 4*D; 
+ EndIf
+ If( BubbleShape == 2 ) // inclined bubble
+  // body computed at python/misc/radius.py
+  V = 5.90;  r = 0.5*D; body = 4.57085898087579; 
+  L1 = 7*D; 
+  L2 = 14*D; 
+ EndIf
+
+ // channel start x coordinate
+ chxinit = 0.0;
+EndIf
 
 // initial bubble nose coordiante 
-xc = Li/Do;
+xc = 0.8*(L1+L2);
 yc = 0.0;
 zc = 0.0;
+
+// straight bubble
+If( BubbleShape == 1 )
+ // conical frustum section --> V2 
+ r1 = r;
+ r2 = r;
+EndIf
+
+// inclined bubble
+If( BubbleShape == 2 )
+ // conical frustum section --> V2 
+ // body defined earlier // computed at python/misc/radius.py
+ r1 = 2*r;
+ r2 = r + (body*4.5*D/128.87);
+EndIf
 
 // Computing bubble volume 
 // prolate ellipsoid --> V1 = 4/3 * Pi * a * b * b
@@ -95,51 +124,67 @@ b = r;
 V1 = (4.0/3.0)*Pi*a*b*b/2.0;
 
 // conical frustum section --> V2 
-r1 = r + (body*4.5*D/128.87);
-r2 = r;
+// if r1=r2 -> straight bubble
+// if r1!=r2 -> inclined bubble
 h  = body;
-V2 = (1.0/3.0)*Pi*h*(r1*r1 + r1*r2 + r2*r2);
+V2 = (1.0/3.0)*Pi*h*(r*r + r*r2 + r2*r2);
 
 // prolate ellipsoid --> V3 = 4/3 * Pi * a * b * b
-a = (r/2.0+r);
-b = r + (body*4.5*D/128.87);
+a = r1;
+b = r2;
 V3 = (4.0/3.0)*Pi*a*b*b/2.0;
-
-Printf("Li = %f mm",Li*1000);
-Printf("bubble length = %f (%f mm) ",(r/2.0+r+body+r/2.0),(r/2.0+r+body+r/2.0)*Do*1e3);
-Printf("bubble width = %f (%f mm)",2.0*(r+(body*4.5*D/128.87)),2.0*(r+(body*4.5*D/128.87))*Do*1e3);
-Printf("aspect ratio X = %f",(r/2.0+r+body+r/2.0)/(2.0*(r+(body*4.5*D/128.87))));
-Printf("bubble volume V = %fE-8 m^3",(V1+V2+V3)*Do*Do*Do*1e8);
 
 /*
  *              5           2
- *              o --------- o 
- *            /              `,     
- *          6 o o 4       1 o  o 3    
- *
+ *      --      o --------- o       --
+ *      r     /              `,     r2 (computed)
+ *      --  6 o o 4       1 o  o 3  --  
+ *            | |---body----|r1|
+ *            r/2
  * */
 
 i=0;
 
 // inclined bubble
 If( BubbleShape == 2 )
- Point(i+1) = {xc-(r/2.0+r), yc, zc, b1}; // center
- Point(i+2) = {xc-(r/2.0+r), yc + r + (body*4.5*D/128.87), zc, b1}; // up
+ Point(i+1) = {xc-(r1), yc, zc, b1}; // center
+ Point(i+2) = {xc-(r1), yc + r + (body*4.5*D/128.87), zc, b1}; // up
  Point(i+3) = {xc, yc, zc, b1}; // right
- Point(i+4) = {xc-(r/2.0+r+body), yc, zc, b1}; // center
- Point(i+5) = {xc-(r/2.0+r+body), yc+r, zc, b1}; // up
- Point(i+6) = {xc-(r/2.0+r+body+r/2.0), yc, zc, b1}; // right
+ Point(i+4) = {xc-(r1+body), yc, zc, b1}; // center
+ Point(i+5) = {xc-(r1+body), yc+r, zc, b1}; // up
+ Point(i+6) = {xc-(r1+body+r/2), yc, zc, b1}; // right
 EndIf
 
 // straight bubble
 If( BubbleShape == 1 )
- Point(i+1) = {xc-(r), yc, zc, b1}; // center
- Point(i+2) = {xc-(r), yc + r , zc, b1}; // up
+ Point(i+1) = {xc-(r1), yc, zc, b1}; // center
+ Point(i+2) = {xc-(r1), yc + r , zc, b1}; // up
  Point(i+3) = {xc, yc, zc, b1}; // right
- Point(i+4) = {xc-(r+body), yc, zc, b1}; // center
- Point(i+5) = {xc-(r+body), yc+r, zc, b1}; // up
- Point(i+6) = {xc-(r+body+r), yc, zc, b1}; // right
+ Point(i+4) = {xc-(r1+body), yc, zc, b1}; // center
+ Point(i+5) = {xc-(r1+body), yc+r, zc, b1}; // up
+ Point(i+6) = {xc-(r1+body+r/2), yc, zc, b1}; // right
 EndIf
+
+
+If( BubbleShape == 2 )
+ Printf("bubble length = %f (%f mm) ",(xc-(xc-(r/2.0+r+body+r/2.0))),
+                                      (xc-(xc-(r/2.0+r+body+r/2.0)))*Do*1e3);
+ Printf("bubble width = %f (%f mm)",(yc + 2*(r + (body*4.5*D/128.87))),
+                                    (yc + 2*(r + (body*4.5*D/128.87)))*Do*1e3);
+ Printf("aspect ratio X = %f",(xc-(xc-(r+body+r)))/(yc+2*(r+(body*4.5*D/128.87))));
+EndIf
+
+// straight bubble
+If( BubbleShape == 1 )
+ Printf("bubble length = %f (%f mm) ",(xc-(xc-(r+body+r))),
+                                      (xc-(xc-(r+body+r)))*Do*1e3);
+ Printf("bubble width = %f (%f mm)",(2*r),
+                                    (2*r)*Do*1e3);
+ Printf("aspect ratio X = %f",(xc-(xc-(r+body+r)))/(2*r));
+EndIf
+Printf("dim bubble volume V = %fE-8 m^3",(V1+V2+V3)*Do*Do*Do*1e8);
+Printf("non-dim bubble volume V = %f",(V1+V2+V3));
+
 
 j=0;
 Ellipse(j+1) = {i+2, i+1, i+1, i+3};
