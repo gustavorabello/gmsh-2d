@@ -11,8 +11,8 @@ Case = 1; // DW or DW50
 //Case = 3; // HDMSO
 
 // bubble shape
-BubbleShape = 1; // straight bubble
-//BubbleShape = 2; // inclined bubble
+//BubbleShape = 1; // straight bubble
+BubbleShape = 2; // inclined bubble
 
 /* bubble width  = r;
  * bubble length = tail + body + nose
@@ -41,8 +41,8 @@ If( Case == 1 )
   //V = 3.60; r = 0.5*D; body = 2.85235015254463; 
   //V = 3.60; r = 0.6*D; body = 1.80873330649893; 
   //V = 3.60; r = 0.7*D; body = 1.02146475145782; 
-  L1 = 7*D; 
-  L2 = 14*D; 
+  L1 = 11*D; 
+  L2 = 10*D; 
  EndIf
 
  // channel start x coordinate
@@ -64,8 +64,31 @@ If( Case == 2 )
  If( BubbleShape == 2 ) // inclined bubble
   // body computed at python/misc/radius.py
   //V = 2.70;  r = 0.6*D; body = 1.18868094788726; 
-  V = 4.30;  r = 0.5*D; body = 3.40982529698491; 
-  //V = 6.009; r = 0.5*D; body = 4.64506395330237; 
+  //V = 2.80;  r = 0.4*D; body = 3.41727570637340; 
+  //V = 2.80;  r = 0.5*D; body = 2.16922559625744; 
+  //V = 2.80;  r = 0.6*D; body = 1.25956894708787; 
+  //V = 3.20;  r = 0.4*D; body = 3.84573429307197; 
+  //V = 3.20;  r = 0.5*D; body = 2.51746297136823; 
+  //V = 3.20;  r = 0.6*D; body = 1.53801995792008; 
+  //V = 3.80;  r = 0.4*D; body = 4.44794845734970; 
+  //V = 3.80;  r = 0.5*D; body = 3.01517264217419; 
+  //V = 3.80;  r = 0.6*D; body = 1.94135185741150; 
+  V = 4.20;  r = 0.4*D; body = 4.82610297083092; 
+  //V = 4.20;  r = 0.5*D; body = 3.33225113142393; 
+  //V = 4.20;  r = 0.6*D; body = 2.20140987855224; 
+  //V = 4.30;  r = 0.5*D; body = 3.40982529698491; 
+  //V = 4.70;  r = 0.4*D; body = 5.27607324259425; 
+  //V = 4.70;  r = 0.5*D; body = 3.71375761506869; 
+  //V = 4.70;  r = 0.6*D; body = 2.51732719800371; 
+  //V = 5.20;  r = 0.4*D; body = 5.70371618797107; 
+  //V = 5.20;  r = 0.5*D; body = 4.08028321728716; 
+  //V = 5.20;  r = 0.6*D; body = 2.82378259460910; 
+  //V = 5.80;  r = 0.4*D; body = 6.19101511272663; 
+  //V = 5.80;  r = 0.5*D; body = 4.50228160672880; 
+  //V = 5.80;  r = 0.6*D; body = 3.17998905828141; 
+  //V = 6.00; r = 0.4*D; body = 6.34777253384599; 
+  //V = 6.00; r = 0.5*D; body = 4.63895819417649; 
+  //V = 6.00; r = 0.6*D; body = 3.29609529786310; 
   L1 = 7*D; 
   L2 = 14*D; 
  EndIf
@@ -88,9 +111,16 @@ If( Case == 3 )
  EndIf
  If( BubbleShape == 2 ) // inclined bubble
   // body computed at python/misc/radius.py
-  V = 5.90;  r = 0.5*D; body = 4.57085898087579; 
+  V = 5.85;  r = 0.3*D; body = 8.33529358473641;
+  //V = 5.85;  r = 0.4*D; body = 6.23045793998997;
+  //V = 5.85;  r = 0.5*D; body = 4.53663058862460;
+  //V = 5.85;  r = 0.6*D; body = 3.20913517111535;
+  //V = 5.90;  r = 0.4*D; body = 6.26973057483005; 
+  //V = 5.90;  r = 0.5*D; body = 4.57085898087579; 
+  //V = 5.90;  r = 0.6*D; body = 3.23820121780851; 
+  //V = 6.05;  r = 0.4*D; body = 6.38654541431208; 
   L1 = 7*D; 
-  L2 = 14*D; 
+  L2 = 15*D; 
  EndIf
 
  // channel start x coordinate
