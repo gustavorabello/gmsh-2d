@@ -6,12 +6,8 @@ wall = 0.025;
 
 D = 1.0;
 r = 0.25*D;
-slug = 1.5*D;
-body = 2*D;
-pert = (0.0/100.0)*r;
-
-ll = 1.5*D; // length of the left section
-dist = 1.0*r; // distance from the bubble to the left and right sections
+slug = 2.5*D;
+body = 2.0*D;
 
 /* sinusoidal wall configuration
  *
@@ -28,13 +24,13 @@ dist = 1.0*r; // distance from the bubble to the left and right sections
  * k = -------- --> wave number
  *      lambda
  * */
-A = 0.01;
+A = 0.07;
 stretch = 8;
 lambda = 4;
 wavenum = 2*Pi/lambda; 
 stfixed = 8.0;     // stretch of the fixed sinSphere.geo
-xcf = 0.15*stfixed; // xc of the fixed sinSphere.geo
-xcm = 0.75*stretch; // xc of the moving sinSphere.geo (current)
+xcf = 0.15*stfixed; // xc of the fixed sin.geo
+xcm = 0.75*stretch; // xc of the moving sin.geo (current)
 phase = wavenum*(xcm-xcf); 
 nCycles = stretch/lambda;
 nPoints = (40.0/stfixed)*stretch+1; // total number of points in sinusoidal line
@@ -50,7 +46,6 @@ Printf("----------------------------------------------------");
 For t In {0:nb-1}
  // bubble's coordinates
  xc = xcm + (slug+r)*t;
- //xc = xcm + r/2.0+1.5*D + (slug+r)*t;
  yc = 0.0;
  zc = 0.0;
 
@@ -77,38 +72,53 @@ For i In {1:nPoints-1}
  j = j + 1;
 EndFor
 
-k = newp;
 /*  
- *   k+1             k+2  6           3  k+3               k+5
+ *   k+1              6    4            1   3               k+2
  *    o----------------o---o------------o---o-----------------o
  *    
- *    |           ll          | r | r |           lr          |
- *    |<--------------------->|<->|<->|<--------------------->|
- *    |                        stretch                        |
- *    |<----------------------------------------------------->|
+ *    |       ll       | r |     body   | r |       lr        |
+ *    |<-------------->|<->|<---------->|<->|<--------------->|
  */
 
+k = k + nPoints;
 Point(k+1) = {0.0, 0.0, 0.0, wall};
-Point(k+2) = {stretch,   0.0, 0.0, wall};
+Point(k+2) = {stretch, 0.0, 0.0, wall};
 
-// at symmetry axis, the nodes should be connected, since interface is
-// also at the axis. It is not possible to have a straigth line
-// connecting the extreme edges of the domain (k+1 to k+5)
-bl = newl; Line(bl) = { 4, 6 };
-bm = newl; Line(bm) = { 1, 4 };
-br = newl; Line(br) = { 3, 1 };
-right = newl; Line(right) = { 10000+nPoints+3,3 };
-left = newl; Line(left) = {6, 10000+nPoints+2};
-in = newl; Line(in) = {k+1, k-nPoints};
-out = newl; Line(out) = {k+2, k-1};
+left = newl; Line(left) = { 6, k+1 };
+j=100*0;
+For t In {1:nb}
+ bl = newl; Line(bl) = { j+4, j+6 };
+ bc = newl; Line(bc) = { j+1, j+4 };
+ br = newl; Line(br) = { j+3, j+1 };
+ j=100*t;
+EndFor
+j=100*0;
+For t In {1:nb-1}
+ Printf("j+3: %f",j+3);
+ bm = newl; Line(bm) = { j+100+6,j+3 };
+ j=100*t;
+EndFor
+right = newl; Line(right) = { j+3, k+2 };
 
-Physical Line('wallInflowZeroU') = {-out};
-Physical Line('wallMovingY') = {k-nPoints:k-2:1};
-Physical Line('wallOutflow') = { in };
-Physical Line('wallNormalV') = { left, bl, bm, br, right };  // symmetry bc
+
+// lines in both ends
+out = newl;Line(out) = {k+1, k-nPoints+1};
+in = newl;Line(in) = {k+2, k+0};
+
+Physical Line('wallInflowZeroU') = {-in};
+Physical Line('wallOutflow') = {out};
+Physical Line('wallMovingY') = {k-nPoints+1:k-1:1};
+Physical Line('wallNormalV') = {left,k+1:br+nb-1:1,-right};
 
 j=200*0;
 For t In {1:nb}
-Physical Line(Sprintf("bubble%g",t)) = {j+1, j+2,j+3};
+ Physical Line(Sprintf("bubble%g",t)) = {j+2, j+1,j+3};
  j=200*t;
 EndFor
+/*--------------------------------------------------
+ * Printf("k+1: %f",k+1);
+ * Printf("k+2: %f",k+2);
+ * Printf("k+3: %f",k+3);
+ * Printf("k+4: %f",k+4);
+ * --------------------------------------------------*/
+
