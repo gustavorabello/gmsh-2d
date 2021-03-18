@@ -6,13 +6,14 @@ nb = 1;
 D = 1.0; 
 
 // solution
-Case = 1; // DW or DW50
-//Case = 2; // SO
-//Case = 3; // HDMSO
+//Case = 1; // DW
+Case = 2; // DW50
+//Case = 3; // SO2
+//Case = 4; // HDMSO
 
 // bubble shape
-//BubbleShape = 1; // straight bubble
-BubbleShape = 2; // inclined bubble
+BubbleShape = 1; // straight bubble
+//BubbleShape = 2; // inclined bubble
 
 /* bubble width  = r;
  * bubble length = tail + body + nose
@@ -25,24 +26,61 @@ Df = 0.0214;  // larger diameter
 
 // Degassed water and DW50
 If( Case == 1 )
- Printf("Degassed water or DW50");
- Printf("Target Volume: 3.51E-8 < v[m^3] < 3.55E-8");
- Printf("Target non-dim Volume: 3.581507 < v[-] < 3.622322");
+ Printf("Degassed water - DW");
+ Printf("Target Volume: 3.48E-8 < v[m^3] < 3.55E-8");
+ Printf("Target non-dim Volume: 3.550895 < v[-] < 3.622322");
  //non-dimensional sections
  If( BubbleShape == 1 ) // straight bubble
-  V = 3.60; r = 0.4*D; 
+  V = 8.00; r = 0.38*D; 
   body = (V - (2.0/3.0)*Pi*r*r*r - (2.0/3.0)*Pi*(r/2)*r*r)/(Pi*r*r);
-  L1 = 17*D; 
-  L2 = 4*D; 
+  L1 = 32*D; 
+  L2 = 14*D; 
  EndIf
  If( BubbleShape == 2 ) // inclined bubble
   // body computed at python/misc/radius.py
-  V = 3.60; r = 0.4*D; body = 4.25215763664974; 
+  //V = 3.60; r = 0.4*D; body = 4.25215763664974; 
   //V = 3.60; r = 0.5*D; body = 2.85235015254463; 
+  ///////V = 3.60; r = 0.4*D; body = 9.85235015254463; 
+  V = 3.60; r = 0.32*D; body = 13.0;
+  //V = 3.60; r = 0.32*D; body = 15.0;
+  //V = 3.60; r = 0.27*D; body = 17.0;
+  //V = 3.60; r = 0.27*D; body = 22.0;
+  //V = 3.60; r = 0.27*D; body = 26.0;
   //V = 3.60; r = 0.6*D; body = 1.80873330649893; 
   //V = 3.60; r = 0.7*D; body = 1.02146475145782; 
-  L1 = 11*D; 
-  L2 = 10*D; 
+  L1 = 12*D; 
+  L2 = 22*D; 
+ EndIf
+
+ // channel start x coordinate
+ chxinit = 0.0;
+EndIf
+
+If( Case == 2 )
+ Printf("Degassed water + 50% Glycerol - DW50");
+ Printf("Target Volume: 18.0E-8 < v[m^3] < 21.0E-8");
+ Printf("Target non-dim Volume: 18.36670 < v[-] < 21.42781");
+ //non-dimensional sections
+ If( BubbleShape == 1 ) // straight bubble
+  V = 8.00; r = 0.38*D; 
+  body = (V - (2.0/3.0)*Pi*r*r*r - (2.0/3.0)*Pi*(r/2)*r*r)/(Pi*r*r);
+  L1 = 32*D; 
+  L2 = 14*D; 
+ EndIf
+ If( BubbleShape == 2 ) // inclined bubble
+  // body computed at python/misc/radius.py
+  //V = 3.60; r = 0.4*D; body = 4.25215763664974; 
+  //V = 3.60; r = 0.5*D; body = 2.85235015254463; 
+  ///////V = 3.60; r = 0.4*D; body = 9.85235015254463; 
+  V = 3.60; r = 0.32*D; body = 13.0;
+  //V = 3.60; r = 0.32*D; body = 15.0;
+  //V = 3.60; r = 0.27*D; body = 17.0;
+  //V = 3.60; r = 0.27*D; body = 22.0;
+  //V = 3.60; r = 0.27*D; body = 26.0;
+  //V = 3.60; r = 0.6*D; body = 1.80873330649893; 
+  //V = 3.60; r = 0.7*D; body = 1.02146475145782; 
+  L1 = 12*D; 
+  L2 = 22*D; 
  EndIf
 
  // channel start x coordinate
@@ -50,16 +88,16 @@ If( Case == 1 )
 EndIf
 
 // Silicon oil
-If( Case == 2 )
- Printf("Silicon oil");
- Printf("Target Volume: 2.65E-8 < v[m^3] < 5.89E-8");
- Printf("Target non-dim Volume: 2.70398 < v[-] < 6.00999");
+If( Case == 3 )
+ Printf("Silicon oil - SO2");
+ Printf("Target Volume: 2.65E-8 < v[m^3] < 5.86E-8");
+ Printf("Target non-dim Volume: 2.70398 < v[-] < 5.979381");
  //non-dimensional sections
  If( BubbleShape == 1 ) // straight bubble
-  V = 2.704; r = 0.4*D; 
+  V = 2.704; r = 0.42*D; 
   body = (V - (2.0/3.0)*Pi*r*r*r - (2.0/3.0)*Pi*(r/2)*r*r)/(Pi*r*r);
-  L1 = 17*D; 
-  L2 = 4*D; 
+  L1 = 14*D; 
+  L2 = 6*D; 
  EndIf
  If( BubbleShape == 2 ) // inclined bubble
   // body computed at python/misc/radius.py
@@ -98,10 +136,10 @@ If( Case == 2 )
 EndIf
 
 // water
-If( Case == 3 )
- Printf("Water");
- Printf("Target Volume: 5.65E-8 < v[m^3] < 6.00E-8");
- Printf("Target non-dim Volume: 5.795714 < v[-] < 6.12223");
+If( Case == 4 )
+ Printf("Water - HMDSO/HO");
+ Printf("Target Volume: 1.21E-8 < v[m^3] < 8.78E-8");
+ Printf("Target non-dim Volume: 1.2346 < v[-] < 8.958869");
  //non-dimensional sections
  If( BubbleShape == 1 ) // straight bubble
   V = 5.90; r = 0.4*D; 
