@@ -12,12 +12,11 @@ For t In {0:nb-1}
  yc = 0.0;
 
  // include torus.geo file
- Include '../../bubbleShape/circle.geo';
+ Include '../../bubbleShape/square.geo';
 EndFor
 
 // high order element
 Mesh.ElementOrder = 2;
-Mesh.SecondOrderIncomplete = 0;
 
 j=200*0;
 For t In {1:nb}
