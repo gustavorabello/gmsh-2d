@@ -34,6 +34,10 @@ Line(6) = {5, 0};
 
 Physical Line('wallInflowUStep') = {6};
 Physical Line('wallOutflow') = {4};
-Physical Line('wallNoSlip') = {2,3};
-Physical Line('wallNoSlipTemp') = {1};
+Physical Line('wallNoSlip') = {1,2,3};
+//Physical Line('wallNoSlipTemp') = {1};
 Physical Line('wallNoSlipConst') = {5};
+//+
+Curve Loop(1) = {5, 6, 1, 2, 3, 4};
+//+
+Plane Surface(1) = {1};

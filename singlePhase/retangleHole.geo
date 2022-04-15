@@ -1,6 +1,6 @@
 
 wall = 0.1;
-hole = 0.1;
+hole = 0.05;
 
 L = 1.0;
 
@@ -18,9 +18,9 @@ L = 1.0;
  *                      2          9L         3
  * */
 
-xCenter=8*L/2.0;
-yCenter=1*L;
-radius=0.5;
+xCenter=3*L/2.0;
+yCenter=L/2.0;
+radius=0.125;
 pert=(0.0/100)*radius;
 Point(1) = {xCenter, yCenter,             0,hole}; // center
 Point(2) = {xCenter, yCenter+radius-pert, 0,hole}; // up
@@ -33,9 +33,9 @@ Ellipse(3) = {3, 1, 1, 4};
 Ellipse(4) = {4, 1, 1, 2};
 
 Point(6)  = {0.0, 0.0, 0.0,  wall}; // p0
-Point(7)  = {8*L, 0.0, 0.0,  wall}; // p3
-Point(8)  = {8*L, 2*L, 0.0,  wall}; // p4
-Point(9)  = {0.0, 2*L, 0.0,  wall}; // p5
+Point(7)  = {3*L, 0.0, 0.0,  wall}; // p3
+Point(8)  = {3*L, L, 0.0,  wall}; // p4
+Point(9)  = {0.0, L, 0.0,  wall}; // p5
 
 Line(5) = {6, 7};
 Line(6) = {7, 8};
@@ -56,10 +56,11 @@ Plane Surface(1) = {1, 2};
  * --------------------------------------------------*/
 
 //+ boundary conditions stream function (psi)
-Physical Line('wallPsiY') = {8, 6};
-Physical Line('wallPsiBottom') = {5};
-Physical Line('wallPsiTop') = {7};
-Physical Line('wallPsiHole') = {4, 1, 2, 3};
+Physical Line('direita') = {6};
+Physical Line('esquerda') = {8};
+Physical Line('inferior') = {5};
+Physical Line('superior') = {7};
+Physical Line('circulo') = {4, 1, 2, 3};
 
 //+
 Physical Surface(5) = {1};
